@@ -1,9 +1,8 @@
-
-import artPage from './schemas/artPage'
-import artwork from './schemas/artwork'
+import logo from './schemas/logo'
 import favicon from './schemas/favicon'
-import page from './schemas/page'
+import non_art_page from './schemas/non_art_page'
+import art_page from './schemas/art_page'
 
 export const schema = {
-  types: [artPage, artwork, favicon, page],
+  types: [logo, favicon, non_art_page, art_page],
 }

@@ -1,7 +1,10 @@
+import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
+
 export default {
-    name: 'page',
-    title: 'Page',
+    name: 'non_art_page',
+    title: 'Non-Artwork Page',
     type: 'document',
+    orderings: [orderRankOrdering],
     fields: [
         {
             title: 'Page Type',
@@ -11,7 +14,6 @@ export default {
                 list: [
                     {title: 'Friends', value: 'friends'},
                     {title: 'Process/About/Studio', value: 'process'},
-                    {title: 'Artwork', value: 'artwork'}
                 ],
                 layout: 'radio'
             },
@@ -24,6 +26,7 @@ export default {
             description: 'The page title to appear in the navigation menu',
             validation: Rule => Rule.required()
         },
+        orderRankField({ type: 'category' }),
         {
             title: 'Page Heading',
             name: 'page_heading',
@@ -36,7 +39,6 @@ export default {
             name: 'blurb',
             type: 'text',
             description: 'A blurb describing the contents or subject matter of the page',
-            hidden: ({document}) => document?.page_type === 'artwork'
         },
         {
             name: 'friends_gallery',
@@ -54,7 +56,8 @@ export default {
                             name: 'first_name',
                             title: 'First Name',
                             type: 'string',
-                            description: "Friend's first name"
+                            description: "Friend's first name",
+                            required: true,
                         },
                         {
                             name: 'last_name',
@@ -78,70 +81,9 @@ export default {
                             name: 'Photo',
                             type: 'image',
                             title: 'Photo',
-                            description: "Image of friend or friend's work"
+                            description: "Image of friend or friend's work",
+                            required: true,
                         }
-                    ]
-                }
-            ]
-        },
-        {
-            name: 'art_gallery',
-            title: 'Art Gallery',
-            type: 'array',
-            description: 'A gallery of artwork to be featured on this page',
-            hidden: ({document}) => document?.page_type !== 'artwork',
-            of: [
-                {
-                    name: 'artwork',
-                    type: 'document',
-                    title: 'Artwork',
-                    fields: [
-                        {
-                            name: 'image',
-                            title: 'Image',
-                            type: 'image',
-                            description: 'Image of the artwork',
-                            fields: [
-                                {
-                                    name: 'date',
-                                    title: 'Date',
-                                    type: 'date',
-                                    description: "The date the work was completed, or first shown (don't worry about the day)"
-                                },
-                                {
-                                    name: 'title',
-                                    title: 'Title',
-                                    type: 'string',
-                                    description: 'The title of the work'
-                                },
-                                {
-                                    name: 'width',
-                                    title: 'Width',
-                                    type: 'number',
-                                    description: 'Width of the work in inches',
-                                    validation: Rule => Rule.positive()
-                                },
-                                {
-                                    name: 'height',
-                                    title: 'Height',
-                                    type: 'number',
-                                    description: 'Height of the work in inches',
-                                    validation: Rule => Rule.positive()
-                                },
-                                {
-                                    name: 'blurb',
-                                    title: 'Blurb',
-                                    type: 'text',
-                                    description: 'A short blurb about the work'
-                                },
-                                {
-                                    name: 'medium',
-                                    title: 'Medium',
-                                    type: 'string',
-                                    description: 'Information about the media used to create the work'
-                                },
-                            ]
-                        },
                     ]
                 }
             ]
@@ -178,6 +120,12 @@ export default {
                                 }
                             ]
                         },
+                        {
+                            name: 'blurb',
+                            title: 'Blurb',
+                            type: 'text',
+                            description: "Anything additional you'd like to add about the image"
+                        }
                     ]
                 }
             ]
