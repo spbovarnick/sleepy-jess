@@ -1,4 +1,7 @@
+"use client"
+
 import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
+import { client } from "../lib/client";
 
 export default {
     name: 'art_page',
@@ -21,6 +24,17 @@ export default {
             validation: Rule => Rule.required()
         },
         orderRankField({ type: 'art_page' }),
+        {
+            name: 'homepage',
+            title: 'Homepage?',
+            type: 'boolean',
+            description: 'Select if this artwork page going to be used as the homepage and landing page. Make sure only one artwork page has this field selected!',
+            validation: Rule => Rule.required().custom( async (doc) => {
+                const match = await client.fetch(`*[_type == 'art_page' && homepage == true] {page_heading}`)
+                console.log(match[0].page_heading)
+                return match.length > 0 ? `${match[0].page_heading} is already set as homepage, please update ${match[0].page_heading} before attempting to set this artwork page as your homepage` : true
+            })
+        },
         {
             name: 'art_gallery',
             title: 'Art Gallery',

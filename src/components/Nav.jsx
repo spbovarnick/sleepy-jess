@@ -7,14 +7,14 @@ import Image from "next/image";
 
 const Nav = () => {
 
-    const query = `*[_type == 'artPage'] {_id, nav_title}`
+    const query = `*[_type == 'artPage'] {nav_title} | order(orderRank) `
 
     useEffect(() => {
         (async () => {
             await client
                 .fetch(query)
                 .then((res) =>{
-                    console.log(res)
+                    // console.log(res)
                 })
         })().catch((err) => {
             console.log(err)
