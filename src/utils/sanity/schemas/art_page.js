@@ -29,10 +29,18 @@ export default {
             title: 'Homepage?',
             type: 'boolean',
             description: 'Select if this artwork page going to be used as the homepage and landing page. Make sure only one artwork page has this field selected!',
-            validation: Rule => Rule.required().custom( async (doc) => {
-                const match = await client.fetch(`*[_type == 'art_page' && homepage == true] {page_heading}`)
-                console.log(match[0].page_heading)
-                return match.length > 0 ? `${match[0].page_heading} is already set as homepage, please update ${match[0].page_heading} before attempting to set this artwork page as your homepage` : true
+            validation: Rule => Rule.required().custom( async (homepage, context ) => {
+                if (homepage) {
+                    // from context, _id can be prepended with 'draft.', but will not appear with such in GROQ queries
+                    const rawId = context.document._id;
+                    const docId = rawId.includes("draft") ? rawId.substring(rawId.indexOf('.')+1) : rawId
+                    const query = `*[_type == 'art_page' && homepage == true && _id != $docId]`;
+                    const params = { docId: docId };
+                    const match = await client.fetch(query, params)   
+                    
+                    return match.length === 0 ? true : `${match[0].page_heading} is already set as homepage, please update ${match[0].page_heading} before attempting to set this artwork page as your homepage`;
+                }
+                return true;
             })
         },
         {
