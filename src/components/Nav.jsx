@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const Nav = () => {
-    const [artNavTitles, setArtNavTitles] = useState(null)
+    const [artNavTitles, setArtNavTitles] = useState([])
 
     const query = `*[_type == 'art_page']{
         'navTitle': nav_title, 
@@ -19,16 +19,12 @@ const Nav = () => {
             await client
                 .fetch(query)
                 .then((res) =>{
-                    console.log(res)
-                    const cleanSlug = res.forEach(i => i.homepage ? i.slug = '' : null)
-                    setArtNavTitles(cleanSlug)
+                    setArtNavTitles(res)
                 })
         })().catch((err) => {
             console.log(err)
         })
     },[])
-
-    console.log(artNavTitles)
 
     return (
         <nav className='fixed top-0 left-0 w-44 flex flex-col m-9'>
@@ -40,65 +36,18 @@ const Nav = () => {
                 alt='Sleepy Jess logo'
             />
             <div>
-                <ul className='primary-destinations'>
-                    {artNavTitles?.map( (link, index) => {
+                {artNavTitles.length > 0 && (
+                    artNavTitles.map( (link, i) => (
+                        <li key={i}>
                         <Link
-                            key={index}
+                            
+                            href={`/${link.slug}`}
                         >
-
+                            {link.navTitle}
                         </Link>
-                    })}
-                <li>
-                    <a
-                    href="/"
-                    >
-                    Painting
-                    </a>
-                </li>
-                <li>
-                    <a
-                    href="/"
-                    >
-                    Design/Illustration
-                    </a>
-                </li>
-                <li>
-                    <a
-                    href="/"
-                    >
-                    Mud and More
-                    </a>
-                </li>
-                <li>
-                    <a
-                    href="/"
-                    >
-                    Shop
-                    </a>
-                </li>
-                </ul>
-                <ul className='secondary-destinations'>
-                <li>
-                    <a>
-                    About
-                    </a>
-                </li>
-                <li>
-                    <a>
-                    Contact
-                    </a>
-                </li>
-                <li>
-                    <a>
-                    Process
-                    </a>
-                </li>
-                <li>
-                    <a>
-                    Friends
-                    </a>
-                </li>
-                </ul>
+                        </li>
+                    ))
+                )}
             </div>
         </nav>
     )
