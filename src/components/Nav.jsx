@@ -19,6 +19,8 @@ const Nav = () => {
             await client
                 .fetch(query)
                 .then((res) =>{
+                    const setHomeSlug = res.forEach(i => i.homepage === true ? i.slug = '' : null)
+                    // console.log(res)
                     setArtNavTitles(res)
                 })
         })().catch((err) => {

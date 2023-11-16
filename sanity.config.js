@@ -8,13 +8,14 @@ import {deskTool} from 'sanity/desk'
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
-import {apiVersion, dataset, projectId} from './src/utils/sanity/env'
+import {apiVersion, dataset, projectId, token} from './src/utils/sanity/env'
 import {schema} from './src/utils/sanity/schema'
 
 export default defineConfig({
   basePath: '/admin',
   projectId,
   dataset,
+  token,
   // Add and edit the content schema in the './sanity/schema' folder
   schema,
   plugins: [

@@ -1,5 +1,7 @@
 import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 import { client } from "../lib/client";
+import ArtPageSlugInput from "@/components/ArtPageSlugInput";
+import { HomepageInput } from "@/components/HomepageInput";
 
 export default {
     name: 'art_page',
@@ -28,32 +30,40 @@ export default {
             type: 'boolean',
             description: 'Select if this artwork page going to be used as the homepage and landing page. Make sure only one artwork page has this field selected!',
             initialValue: false,
-            validation: Rule => Rule.required().custom( async (homepage, context ) => {
-                // from context, _id can be prepended with 'draft.', but will not appear with such in GROQ queries
-                const rawId = context.document._id;
-                const docId = rawId.replace(/^drafts\./, '');
-                const query = `*[_type == 'art_page' && homepage == true && _id != $docId]`;
-                const params = { docId: docId };
-                const match = await client.fetch(query, params)   
+            validation: Rule => Rule.required(),
+            
+            // .custom( async (homepage, context ) => {
+            //     // from context, _id can be prepended with 'draft.', but will not appear with such in GROQ queries
+            //     const rawId = context.document._id;
+            //     console.log(rawId)
+            //     const docId = rawId.replace(/^drafts\./, '');
+            //     console.log(docId)
+            //     const query = `*[_type == 'art_page' && homepage == true && _id != $docId]`;
+            //     const params = { docId: docId };
+            //     const match = await client.fetch(query, params)   
 
-                if (homepage) {
-                    return match.length === 0 ? true : `${match[0].page_heading} is already set as homepage, please update ${match[0].page_heading} before attempting to set this artwork page as your homepage`;
-                } else {
-                    return match.length > 0 ? true : `No homepage has been selected. Please select one Art Page as a homepage`
-                }
-            })
+            //     if (homepage) {
+            //         return match.length === 0 ? true : `${match[0].page_heading} is already set as homepage, please update ${match[0].page_heading} before attempting to set this artwork page as your homepage`;
+            //     } else {
+            //         return match.length > 0 ? true : `No homepage has been selected. Please select one Art Page as a homepage`
+            //     }
+            // }),
+            // inputComponent: HomepageInput,
+            components: {
+                input: HomepageInput,
+            }
         },
         {
             name: 'slug',
             title: 'Slug',
             type: 'slug',
-            required: true,
             description: 'The slug that will appear in the URL for this page',
             // hidden: ({document}) => document?.homepage,
             // readOnly: true,
             options: {
                 source: 'page_heading'
             },
+            validation: Rule => Rule.required()
         },
         {
             name: 'art_gallery',
