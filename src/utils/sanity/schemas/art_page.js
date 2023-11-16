@@ -1,5 +1,3 @@
-"use client"
-
 import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 import { client } from "../lib/client";
 
@@ -29,19 +27,33 @@ export default {
             title: 'Homepage?',
             type: 'boolean',
             description: 'Select if this artwork page going to be used as the homepage and landing page. Make sure only one artwork page has this field selected!',
+            initialValue: false,
             validation: Rule => Rule.required().custom( async (homepage, context ) => {
+                // from context, _id can be prepended with 'draft.', but will not appear with such in GROQ queries
+                const rawId = context.document._id;
+                const docId = rawId.replace(/^drafts\./, '');
+                const query = `*[_type == 'art_page' && homepage == true && _id != $docId]`;
+                const params = { docId: docId };
+                const match = await client.fetch(query, params)   
+
                 if (homepage) {
-                    // from context, _id can be prepended with 'draft.', but will not appear with such in GROQ queries
-                    const rawId = context.document._id;
-                    const docId = rawId.includes("draft") ? rawId.substring(rawId.indexOf('.')+1) : rawId
-                    const query = `*[_type == 'art_page' && homepage == true && _id != $docId]`;
-                    const params = { docId: docId };
-                    const match = await client.fetch(query, params)   
-                    
                     return match.length === 0 ? true : `${match[0].page_heading} is already set as homepage, please update ${match[0].page_heading} before attempting to set this artwork page as your homepage`;
+                } else {
+                    return match.length > 0 ? true : `No homepage has been selected. Please select one Art Page as a homepage`
                 }
-                return true;
             })
+        },
+        {
+            name: 'slug',
+            title: 'Slug',
+            type: 'slug',
+            required: true,
+            description: 'The slug that will appear in the URL for this page',
+            // hidden: ({document}) => document?.homepage,
+            // readOnly: true,
+            options: {
+                source: 'page_heading'
+            },
         },
         {
             name: 'art_gallery',

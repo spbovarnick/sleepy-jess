@@ -4,7 +4,7 @@
 
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
-import {deskTool, StructureBuilder} from 'sanity/desk'
+import {deskTool} from 'sanity/desk'
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works

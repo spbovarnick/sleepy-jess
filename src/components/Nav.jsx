@@ -2,25 +2,33 @@
 
 import Link from "next/link";
 import { client } from "@/utils/sanity/lib/client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const Nav = () => {
+    const [artNavTitles, setArtNavTitles] = useState(null)
 
-    const query = `*[_type == 'artPage'] {nav_title} | order(orderRank) `
+    const query = `*[_type == 'art_page']{
+        'navTitle': nav_title, 
+        'slug': slug.current,
+        'homepage': homepage
+    }|order(orderRank)`
 
     useEffect(() => {
         (async () => {
             await client
                 .fetch(query)
                 .then((res) =>{
-                    // console.log(res)
+                    console.log(res)
+                    const cleanSlug = res.forEach(i => i.homepage ? i.slug = '' : null)
+                    setArtNavTitles(cleanSlug)
                 })
         })().catch((err) => {
             console.log(err)
         })
     },[])
 
+    console.log(artNavTitles)
 
     return (
         <nav className='fixed top-0 left-0 w-44 flex flex-col m-9'>
@@ -33,6 +41,13 @@ const Nav = () => {
             />
             <div>
                 <ul className='primary-destinations'>
+                    {artNavTitles?.map( (link, index) => {
+                        <Link
+                            key={index}
+                        >
+
+                        </Link>
+                    })}
                 <li>
                     <a
                     href="/"
