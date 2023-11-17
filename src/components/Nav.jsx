@@ -1,17 +1,20 @@
 "use client"
 
 import Link from "next/link";
-import { client } from "@/utils/sanity/lib/client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { createClient } from "next-sanity";
+import { client } from "@/utils/sanity/lib/client";
+
 
 const Nav = () => {
     const [artNavTitles, setArtNavTitles] = useState([])
 
-    const query = `*[_type == 'art_page']{
+    const query = `*[_type == 'art_page' && !(_id in path("drafts.**"))]{
         'navTitle': nav_title, 
         'slug': slug.current,
-        'homepage': homepage
+        'homepage': homepage,
+        _id
     }|order(orderRank)`
 
     useEffect(() => {
@@ -19,14 +22,19 @@ const Nav = () => {
             await client
                 .fetch(query)
                 .then((res) =>{
-                    const setHomeSlug = res.forEach(i => i.homepage === true ? i.slug = '' : null)
-                    // console.log(res)
-                    setArtNavTitles(res)
+                    const setHomeSlug = res.map(item => ({
+                        ...item,
+                        slug: item.homepage ? '' : item.slug
+                    }))
+                    console.log(res)
+                    setArtNavTitles(setHomeSlug)
                 })
         })().catch((err) => {
             console.log(err)
         })
-    },[])
+    },[]);
+
+    console.log(artNavTitles)
 
     return (
         <nav className='fixed top-0 left-0 w-44 flex flex-col m-9'>

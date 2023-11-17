@@ -4,45 +4,41 @@ import { client } from '@/utils/sanity/lib/client'
 import { useFormBuilder, set, unset } from 'sanity'
 
 export const HomepageInput = (props) => {
-    console.log(props)
     const { elementProps, value, onChange, schemaType } = props
-    const currentId = useFormBuilder().value._id
-    console.log(currentId)
+    const draftId = useFormBuilder().value._id
 
     const handleChange = useCallback((event) => {
         const checked = event.target.checked;
-        onChange(checked ? set(true) : set(false));
+        onChange(checked ? set(true) : unset());
 
         (async () => {
             // from context, _id can be prepended with 'draft.', but will not appear with such in GROQ queries
-            const rawId = currentId;
-            console.log(rawId)
-            const docId = rawId.replace(/^drafts\./, '');
-            console.log(docId)
-            const params = { docId: docId };
+            const publishedId = draftId.replace(/^drafts\./, '');
+            const params = { publishedId: publishedId, draftId: draftId };
             if (checked) {
-                const query = `*[_type == 'art_page' && homepage == true && _id != $docId]`;
-                const match = await client.fetch(query, params)   
+                const query = `*[_type == 'art_page' && homepage == true && _id != $publishedId && _id != $draftId]`;
+                const match = await client.fetch(query, params)
                 if (match.length > 0) {
                     match.forEach((hp) => {
                         client
                             .patch(hp._id)
-                            .set({homepage: false})
+                            .set({homepage: !checked})
                             .commit()
                     })
                 }
             } else if (!checked ) {
-                const query = `*[_type == 'art_page' && homepage == false && _id != $docId][0]`
+                const query = `*[_type == 'art_page' && homepage == false && _id != $publishedId && _id != $draftId][0]`
                 const newHp = await client.fetch(query, params)
                 if (newHp) {
                     client
                         .patch(newHp._id)
-                        .set({homepage: true})
+                        // .unset(['homepage'])
+                        .set({homepage: checked})
                         .commit()
                 }
             }
         })().catch(err => console.log(err))
-    }, [currentId, onChange])
+    }, [draftId, onChange])
 
 
     return (
