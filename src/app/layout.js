@@ -1,6 +1,4 @@
-
 import './globals.css'
-import { client } from '@/utils/sanity/lib/client';
 import Nav from '@/components/Nav';
 
 export const metadata = {
@@ -11,9 +9,11 @@ export const metadata = {
 export default function RootLayout({ children }) { 
   return (
     <html lang="en">
-      <body>
+      <body className='flex'>
         <Nav />
-        {children}
+        <div className='w-full p-9'>
+          {children}
+        </div>
       </body>
     </html>
   )

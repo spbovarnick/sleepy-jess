@@ -35,6 +35,18 @@ export default {
             validation: Rule => Rule.required()
         },
         {
+            name: 'slug',
+            title: 'Slug',
+            type: 'slug',
+            description: 'The slug that will appear in the URL for this page',
+            // hidden: ({document}) => document?.homepage,
+            // readOnly: true,
+            options: {
+                source: 'page_heading',
+            },
+            validation: Rule => Rule.required(),
+        },
+        {
             title: 'Blurb',
             name: 'blurb',
             type: 'text',

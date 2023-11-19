@@ -32,7 +32,6 @@ export const HomepageInput = (props) => {
                 if (newHp) {
                     client
                         .patch(newHp._id)
-                        // .unset(['homepage'])
                         .set({homepage: checked})
                         .commit()
                 }

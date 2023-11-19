@@ -1,66 +1,127 @@
-"use client"
-
 import Link from "next/link";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import Image from "next/image";
-import { createClient } from "next-sanity";
 import { client } from "@/utils/sanity/lib/client";
+// import { usePathname } from "next/navigation";
 
+async function fetchData() {
 
-const Nav = () => {
-    const [artNavTitles, setArtNavTitles] = useState([])
+  try {
+    const query = `*[_type in ['art_page', 'non_art_page'] && !(_id in path("drafts.**"))]{
+          'type': _type,
+          'navTitle': nav_title, 
+          'slug': slug.current,
+          'homepage': homepage,
+          _id
+      }|order(orderRank)`
 
-    const query = `*[_type == 'art_page' && !(_id in path("drafts.**"))]{
-        'navTitle': nav_title, 
-        'slug': slug.current,
-        'homepage': homepage,
-        _id
-    }|order(orderRank)`
+    const res = await client.fetch(query)
+    const artPages = res.filter(page => page.type === 'art_page').map(item => ({
+      ...item,
+      slug: item.homepage ? '' : item.slug,
+    }));
+    const nonArtPages = res.filter(page => page.type === 'non_art_page');
+    return { artPages, nonArtPages}
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
 
-    useEffect(() => {
-        (async () => {
-            await client
-                .fetch(query)
-                .then((res) =>{
-                    const setHomeSlug = res.map(item => ({
-                        ...item,
-                        slug: item.homepage ? '' : item.slug
-                    }))
-                    console.log(res)
-                    setArtNavTitles(setHomeSlug)
-                })
-        })().catch((err) => {
-            console.log(err)
-        })
-    },[]);
+  
+    // .then((res) => {
+    //   const artPages = res.filter(page => page.type === 'art_page').map(item => ({
+    //     ...item,
+    //     slug: item.homepage ? '' : item.slug,
+    //   }));
+    //   const nonArtPages = res.filter(page => page.type === 'non_art_page');
+    //   // setArtNavList(artPages)
+    //   // setNonArtNavList(nonArtPages)
+    // }).catch((err) => {
+    //   console.log(err)
+    // })
+}
 
-    console.log(artNavTitles)
+export default async function Nav(){
+  // const [artNavList, setArtNavList] = useState([])
+  // const [nonArtNavList, setNonArtNavList] = useState([])
+  // const pathname = usePathname();
+  const {artPages, nonArtPages} = await fetchData();
+
+    // const fetchData = async (query) => {
+    //     await client
+    //             .fetch(query)
+    //             .then((res) =>{
+    //                 const artPages = res.filter(page => page.type === 'art_page').map(item => ({
+    //                     ...item,
+    //                     slug: item.homepage ? '' : item.slug,
+    //                 }));
+    //                 const nonArtPages = res.filter(page => page.type === 'non_art_page');
+    //                 setArtNavList(artPages)
+    //                 setNonArtNavList(nonArtPages)
+    //             }).catch((err) => {
+    //                 console.log(err)
+    //             })
+    // }
+    
+    // useEffect(() => {
+    //     fetchData(query);
+    // },[]);
 
     return (
-        <nav className='fixed top-0 left-0 w-44 flex flex-col m-9'>
+        // !pathname.includes('admin') &&
+        <nav className='w-44 h-full flex flex-col m-9'>
+            Jess Ackerman
             <Image 
                 src="/logo-placeholder.png"
                 width={500}
                 height={500}
-                className='w-full h-full'
-                alt='Sleepy Jess logo'
+                // className='w-full h-full'
+                alt="Jess Ackerman's web logo"
             />
-            <div>
-                {artNavTitles.length > 0 && (
-                    artNavTitles.map( (link, i) => (
-                        <li key={i}>
+            <div className="primary-nav">
+                <ul>
+                    {artPages.length > 0 && (
+                        artPages.map( (link, i) => (
+                            <li key={i}>
+                                <Link                                    
+                                    href={`/${link.slug}`}
+                                >
+                                    {link.navTitle}
+                                </Link>
+                            </li>
+                        ))
+                    )}
+                    <li>
                         <Link
-                            
-                            href={`/${link.slug}`}
+                            href={'https://sleepyjess.bigcartel.com/'}
                         >
-                            {link.navTitle}
+                            Shop
                         </Link>
-                        </li>
-                    ))
-                )}
+                    </li>
+                </ul>
+            </div>
+            <div className="secondary-nav">
+                <ul>
+                    {nonArtPages.length > 0 &&
+                        nonArtPages.map( (link, i) => (
+                            <li key={i}>
+                                <Link
+                                    href={`/${link.slug}`}
+                                >
+                                    {link.navTitle}
+                                </Link>
+                            </li>
+                        ))
+                    }
+                    <li>
+                        <Link
+                            href={'/'}
+                        >
+                            Contact
+                        </Link>
+                    </li>
+                </ul>
             </div>
         </nav>
     )
 }
-
-export default Nav;

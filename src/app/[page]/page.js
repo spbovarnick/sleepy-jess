@@ -1,5 +1,9 @@
+import ArtPage from "@/components/ArtPage"
+
 export default function Page() {
-    return (
-        <></>
-    )
+  return (
+      <>
+          <ArtPage />
+      </>
+  )
 }
