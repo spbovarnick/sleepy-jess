@@ -1,25 +1,41 @@
-'use client'
+import { client } from "@/utils/sanity/lib/client"
+import Image from "next/image"
 
-import { useParams } from "next/navigation"
-import { useEffect } from "react";
+async function getPageData(query) {
+  try {
+    const res = await client.fetch(query)
+    return res
+  } catch (error ) {
+    console.log("Error fetching data from Sanity:", error)
+  }
+}
 
-const ArtPage = () => {
-  const slug = useParams();
-
-  // useEffect(()=> {
-  //     const artPageQuery = `*[_type == 'art_page' && slug == ${slug}]{
-  //         page_heading,
-  //         homepage,
-  //         slug,
-
-  //     }`
-  // },[])
+export default async function ArtPage({ slug, homepage }) {
+  const query = `*[${homepage ? 'homepage == true' : `slug.current == "${slug}"`
+    }][0]{
+      page_heading,
+      "gallery": art_gallery[]{
+        _key,
+        'url': image.asset -> url 
+      }|order(date desc)
+    }`;
+  const data = await getPageData(query);
+  const {page_heading, gallery} = data ? data : undefined;
 
   return (
+    data &&
       <>
-      <h1>hi</h1>
+        <h1>{page_heading}</h1>
+        {gallery.length > 0 && gallery.map(piece => (
+          <div key={piece._key}>
+            <Image 
+              src={piece.url}
+              width={500}
+              height={500}
+              alt="Art"
+            />
+          </div>
+        ))}
       </>
   )
 }
-
-export default ArtPage
