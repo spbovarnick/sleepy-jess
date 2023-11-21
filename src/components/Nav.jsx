@@ -4,20 +4,23 @@ import { client } from "@/utils/sanity/lib/client";
 
 async function fetchData() {
   try {
-    const query = `*[_type in ['art_page', 'non_art_page'] && !(_id in path("drafts.**"))]{
+    const query = `*[_type in ['non_art_page', 'art_page']]{
         'type': _type,
         'navTitle': nav_title, 
         'slug': slug.current,
         'homepage': homepage,
+        orderRank,
         _id
       }|order(orderRank)`
 
     const res = await client.fetch(query)
-    const artPages = res.filter(page => page.type === 'art_page').map(item => ({
+    const artPages = res.filter(page => page.type === 'art_page').map(item => (
+      {
       ...item,
       slug: item.homepage ? '' : item.slug,
     }));
     const nonArtPages = res.filter(page => page.type === 'non_art_page');
+    console.log(res)
     return { artPages, nonArtPages}
   } catch (err) {
     console.error(err);

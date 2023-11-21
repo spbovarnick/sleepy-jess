@@ -21,7 +21,6 @@ export default async function ArtPage({ slug, homepage }) {
     }`;
   const data = await getPageData(query);
   const {page_heading, gallery} = data ?? {};
-  console.log(data)
   
   return (
     data &&

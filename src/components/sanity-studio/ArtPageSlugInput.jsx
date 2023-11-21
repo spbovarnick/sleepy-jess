@@ -6,7 +6,6 @@ function ArtPageSlugInput(props) {
   
   useEffect(() => {
       const homepage = document.querySelector('input#homepage')
-      console.log(homepage)
   },[])
 
   const handleChange = (event) => {

@@ -7,19 +7,6 @@ export default {
     orderings: [orderRankOrdering],
     fields: [
         {
-            title: 'Page Type',
-            name: 'page_type',
-            type: 'string',
-            options: {
-                list: [
-                    {title: 'Friends', value: 'friends'},
-                    {title: 'Process/About/Studio', value: 'process'},
-                ],
-                layout: 'radio'
-            },
-            validation: Rule => Rule.required()
-        },
-        {
             title: 'Nav Title',
             name: 'nav_title',
             type: 'string',
@@ -32,6 +19,19 @@ export default {
             name: 'page_heading',
             type: 'string',
             description: 'Title/heading to appear at the top of the page',
+            validation: Rule => Rule.required()
+        },
+        {
+            title: 'Page Type',
+            name: 'page_type',
+            type: 'string',
+            options: {
+                list: [
+                    {title: 'Friends', value: 'friends'},
+                    {title: 'Process/About/Studio', value: 'process'},
+                ],
+                layout: 'radio'
+            },
             validation: Rule => Rule.required()
         },
         {
@@ -58,6 +58,16 @@ export default {
             type: 'array',
             description: 'A gallery of friends',
             hidden: ({document}) => document?.page_type !== 'friends',
+            validation: Rule => Rule.custom((gallery, context) => {
+                if (context.document.page_type === 'friends') {
+                    if (Array.isArray(gallery) && gallery.length > 0) {
+                        return true 
+                    } else {
+                        return 'Friends pages require a gallery with at least one item'
+                    }
+                }
+                return true
+            }).error('Friends pages require a gallery with at least one item'),
             of: [
                 {
                     name: 'friend',
@@ -69,7 +79,7 @@ export default {
                             title: 'First Name',
                             type: 'string',
                             description: "Friend's first name",
-                            required: true,
+                            validation: Rule => Rule.required(),
                         },
                         {
                             name: 'last_name',
@@ -90,12 +100,20 @@ export default {
                             description: "Link to friend's work/website"
                         },
                         {
-                            name: 'Photo',
+                            name: 'photo',
                             type: 'image',
                             title: 'Photo',
                             description: "Image of friend or friend's work",
-                            required: true,
-                        }
+                            fields: [
+                                {
+                                    name: 'alt',
+                                    title: 'Alt Text',
+                                    type: 'string',
+                                    description: 'Alt text is important for accessibility reasons. It should be a very brief description of the image',
+                                    validation: Rule => Rule.required(),
+                                },
+                            ]
+                        },
                     ]
                 }
             ]
@@ -129,7 +147,14 @@ export default {
                                     title: 'Attribution',
                                     type: 'string',
                                     description: 'Attribution if the photo was taken by someone else'
-                                }
+                                },
+                                {
+                                    name: 'alt',
+                                    title: 'Alt Text',
+                                    type: 'string',
+                                    description: 'Alt text is important for accessibility reasons. It should be a very brief description of the image',
+                                    validation: Rule => Rule.required(),
+                                },
                             ]
                         },
                         {

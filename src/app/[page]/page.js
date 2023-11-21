@@ -32,9 +32,10 @@ export default async function Page({ params }) {
       'type': _type,
       page_type
     }`
-  const {type, page_type} = await fetchPageType(query)
-  console.log(type)
-
+  const data = await fetchPageType(query)
+  const type = data?.type
+  const page_type = data?.page_type
+  
   return (
       <>
       {
