@@ -2,11 +2,8 @@ import { useEffect } from "react"
 import { SlugInput } from "sanity"
 
 function ArtPageSlugInput(props) {
-  console.log(props)
   const { elementProps, onChange, schemaType, validation, value} = props
-  console.log(elementProps)
-  console.log(document)
-
+  
   useEffect(() => {
       const homepage = document.querySelector('input#homepage')
       console.log(homepage)

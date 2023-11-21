@@ -1,13 +1,10 @@
-'use client'
-import ArtPage from "@/components/ArtPage"
-import { useParams } from "next/navigation"
+import ArtPage from "@/components/artPages/ArtPage"
 
 export default function Home() {
-  const {page} = useParams();
 
   return (
     <>
-      <ArtPage page={page} homepage={true} />
+      <ArtPage homepage={true} />
     </>
   )
 }

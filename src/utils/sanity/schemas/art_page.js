@@ -48,6 +48,7 @@ export default {
           title: 'Art Gallery',
           type: 'array',
           description: 'A gallery of artwork to be featured on this page',
+          validation: Rule => Rule.required(),
           of: [
               {
                   name: 'artwork',
@@ -59,7 +60,7 @@ export default {
                           title: 'Image',
                           type: 'image',
                           description: 'Image of the artwork',
-                          required: true
+                          validation: Rule => Rule.required(),
                       },
                       {
                           name: 'date',
@@ -72,21 +73,26 @@ export default {
                           title: 'Title',
                           type: 'string',
                           description: 'The title of the work',
-                          required: true,
+                          validation: Rule => Rule.required(),
+                      },
+                      {
+                        name: 'alt',
+                        title: 'Alt Text',
+                        type: 'string',
+                        description: 'Alt text is important for accessibility reasons. It should be a very brief description of the image',
+                          validation: Rule => Rule.required(),
                       },
                       {
                           name: 'width',
                           title: 'Width',
                           type: 'number',
                           description: 'Width of the work in inches',
-                          validation: Rule => Rule.positive()
                       },
                       {
                           name: 'height',
                           title: 'Height',
                           type: 'number',
                           description: 'Height of the work in inches',
-                          validation: Rule => Rule.positive()
                       },
                       {
                           name: 'blurb',
@@ -98,7 +104,7 @@ export default {
                           name: 'medium',
                           title: 'Medium',
                           type: 'string',
-                          description: 'Information about the media used to create the work'
+                          description: 'Information about the media & materials used to create the work'
                       },
                   ]
               }

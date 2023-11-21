@@ -1,6 +1,6 @@
 import {Switch, Flex, Card, Label, Text, Stack} from '@sanity/ui'
 import React, {useCallback} from 'react'
-import { studioClient } from '@/utils/sanity/lib/client'
+import { client } from '@/utils/sanity/lib/client'
 import { useFormBuilder, set, unset } from 'sanity'
 
 export const HomepageInput = (props) => {
@@ -17,10 +17,10 @@ export const HomepageInput = (props) => {
             const params = { publishedId: publishedId, draftId: draftId };
             if (checked) {
                 const query = `*[_type == 'art_page' && homepage == true && _id != $publishedId && _id != $draftId]`;
-                const match = await studioClient.fetch(query, params)
+                const match = await client.fetch(query, params)
                 if (match.length > 0) {
                     match.forEach((hp) => {
-                        studioClient
+                        client
                             .patch(hp._id)
                             .set({homepage: !checked})
                             .commit()
@@ -28,9 +28,9 @@ export const HomepageInput = (props) => {
                 }
             } else if (!checked ) {
                 const query = `*[_type == 'art_page' && homepage == false && _id != $publishedId && _id != $draftId][0]`
-                const newHp = await studioClient.fetch(query, params)
+                const newHp = await client.fetch(query, params)
                 if (newHp) {
-                    studioClient
+                    client
                         .patch(newHp._id)
                         .set({homepage: checked})
                         .commit()

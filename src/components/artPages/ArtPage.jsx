@@ -1,5 +1,5 @@
 import { client } from "@/utils/sanity/lib/client"
-import Image from "next/image"
+import GalleryCard from "./GalleryCard"
 
 async function getPageData(query) {
   try {
@@ -20,22 +20,18 @@ export default async function ArtPage({ slug, homepage }) {
       }|order(date desc)
     }`;
   const data = await getPageData(query);
-  const {page_heading, gallery} = data ? data : undefined;
-
+  const {page_heading, gallery} = data ?? {};
+  console.log(data)
+  
   return (
     data &&
       <>
         <h1>{page_heading}</h1>
-        {gallery.length > 0 && gallery.map(piece => (
-          <div key={piece._key}>
-            <Image 
-              src={piece.url}
-              width={500}
-              height={500}
-              alt="Art"
-            />
-          </div>
-        ))}
+        <div className="gallery-wrapper grid grid-cols-1 justify-items-center">
+          {gallery.length > 0 && gallery.map(artwork => (
+            <GalleryCard key={artwork._key} artwork={artwork} />          
+          ))}
+        </div>
       </>
   )
 }
