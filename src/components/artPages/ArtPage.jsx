@@ -10,25 +10,52 @@ async function getPageData(query) {
   }
 }
 
-export default async function ArtPage({ slug, homepage }) {
-  const query = `*[${homepage ? 'homepage == true' : `slug.current == "${slug}"`
+export default async function ArtPage({ slug, homepage, year }) {
+  const query = year ? 
+  `*[${homepage ? 'homepage == true' : `slug.current == "${slug}"`
     }][0]{
       page_heading,
-      "gallery": art_gallery[]{
-        _key,
-        'url': image.asset -> url 
-      }|order(date desc)
-    }`;
+      "gallery": art_gallery[date match "${year}*"] | order(date desc) {
+        key,
+        date,
+        title,
+        alt,
+        width,
+        height,
+        blurb,
+        medium,
+        'url': image.asset -> url ,
+      }
+    }` : 
+    `*[${homepage ? 'homepage == true' : `slug.current == "${slug}"`
+    }][0]{
+      page_heading,
+      "gallery": art_gallery[] | order(date desc) {
+        key,
+        date,
+        title,
+        alt,
+        width,
+        height,
+        blurb,
+        medium,
+        'url': image.asset -> url ,
+      }
+    }`
   const data = await getPageData(query);
   const {page_heading, gallery} = data ?? {};
+  console.log(gallery)
   
   return (
     data &&
       <>
         <h1>{page_heading}</h1>
+        {year && 
+          <h2>{year}</h2>
+        }
         <div className="gallery-wrapper grid grid-cols-1 justify-items-center">
           {gallery.length > 0 && gallery.map(artwork => (
-            <GalleryCard key={artwork._key} artwork={artwork} />          
+            <GalleryCard artwork={artwork} />          
           ))}
         </div>
       </>

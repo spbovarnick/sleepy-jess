@@ -66,7 +66,8 @@ export default {
                           name: 'date',
                           title: 'Date',
                           type: 'date',
-                          description: "The date the work was completed, or first shown (don't worry about the day)"
+                          description: "The date the work was completed, or first shown (don't worry about the day)",
+                          validation: Rule => Rule.required(),
                       },
                       {
                           name: 'title',

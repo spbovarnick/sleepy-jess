@@ -26,7 +26,7 @@ async function fetchPageType(query){
   }
 }
 
-export default async function Page({ params }) {
+export default async function Page({ params, searchParams }) {
   const { page } = params 
   const query = `*[_type in ['art_page', 'non_art_page'] && slug.current == "${page}"][0]{
       'type': _type,
@@ -39,7 +39,7 @@ export default async function Page({ params }) {
   return (
       <>
       {
-        type === 'art_page' ? <ArtPage slug={page} homepage={false} /> :
+        type === 'art_page' ? <ArtPage slug={page} homepage={false} year={searchParams.year} /> :
         <NonArtPage slug={page} page_type={page_type} />
       }
       </>
