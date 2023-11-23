@@ -1,21 +1,12 @@
-import { client } from "@/utils/sanity/lib/client"
 import GalleryCard from "./GalleryCard"
-
-async function getPageData(query) {
-  try {
-    const res = await client.fetch(query)
-    return res
-  } catch (error ) {
-    console.log("Error fetching data from Sanity:", error)
-  }
-}
+import getPageData from "@/utils/api/getPageData";
 
 export default async function ArtPage({ slug, homepage, year }) {
   const query = year ? `*[${homepage ? 'homepage == true' : `slug.current == "${slug}"`
     }][0]{
       page_heading,
       "gallery": art_gallery[date match "${year}"] | order(date desc) {
-        key,
+        "key": _key,
         date,
         title,
         alt,
@@ -29,7 +20,7 @@ export default async function ArtPage({ slug, homepage, year }) {
   }][0]{
       page_heading,
       "gallery": art_gallery[] | order(date desc) {
-        key,
+        "key": _key,
         date,
         title,
         alt,
@@ -52,7 +43,7 @@ export default async function ArtPage({ slug, homepage, year }) {
         }
         <div className="gallery-wrapper grid grid-cols-1 justify-items-center">
           {gallery.length > 0 && gallery.map(artwork => (
-            <GalleryCard artwork={artwork} />          
+            <GalleryCard key={artwork.key} artwork={artwork} />          
           ))}
         </div>
       </>

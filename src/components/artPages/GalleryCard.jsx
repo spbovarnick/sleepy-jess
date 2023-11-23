@@ -4,7 +4,7 @@ export default function GalleryCard({artwork}){
   const {key, date, title, alt, width, height, blurb, medium, url} = artwork ?? artwork;
   
   return (
-    <div key={key}>
+    <div >
       <Image
         src={url}
         width={500}

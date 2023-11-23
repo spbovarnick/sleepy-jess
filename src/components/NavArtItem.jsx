@@ -14,7 +14,7 @@ export default function NavArtItem({ data, key }) {
 
   return(
     <>
-      <li key={_id} className="flex items-center">
+      <li className="flex items-center">
         <Link href={`/${slug}`}>
           {navTitle}
         </Link>

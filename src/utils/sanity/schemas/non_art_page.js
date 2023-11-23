@@ -13,7 +13,6 @@ export default {
             description: 'The page title to appear in the navigation menu',
             validation: Rule => Rule.required()
         },
-        orderRankField({ type: 'category' }),
         {
             title: 'Page Heading',
             name: 'page_heading',
@@ -21,6 +20,7 @@ export default {
             description: 'Title/heading to appear at the top of the page',
             validation: Rule => Rule.required()
         },
+        orderRankField({ type: 'category' }),
         {
             title: 'Page Type',
             name: 'page_type',
@@ -73,6 +73,7 @@ export default {
                     name: 'friend',
                     type: 'document',
                     title: 'Friend',
+                    orderings: [orderRankOrdering],
                     fields: [
                         {
                             name: 'first_name',
@@ -87,6 +88,7 @@ export default {
                             type: 'string',
                             description: "Friend's last name"
                         },
+                        orderRankField({ type: 'category' }),
                         {
                             name: 'blurb',
                             title: 'Blurb',
@@ -126,12 +128,13 @@ export default {
             hidden: ({document}) => document?.page_type !== 'process',
             of: [
                 {
-                    name: 'process_image',
-                    title: 'Studio/Process Image',
+                    name: 'process',
+                    title: 'Studio/Process',
                     type: 'document',
+                    orderings: [orderRankOrdering],
                     fields: [
                         {
-                            name: 'process_image',
+                            name: 'photo',
                             title: 'Process/Studio Photo',
                             type: 'image',
                             required: true,
@@ -162,7 +165,8 @@ export default {
                             title: 'Blurb',
                             type: 'text',
                             description: "Anything additional you'd like to add about the image"
-                        }
+                        },
+                        orderRankField({ type: 'category' }),
                     ]
                 }
             ]

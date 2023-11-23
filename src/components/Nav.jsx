@@ -51,7 +51,7 @@ export default async function Nav(){
         <ul>
           {artPages.length > 0 && (
             artPages.map( (link) => (
-              <NavArtItem  data={link} />
+              <NavArtItem key={link._id} data={link} />
             ))
           )}
           <li>
