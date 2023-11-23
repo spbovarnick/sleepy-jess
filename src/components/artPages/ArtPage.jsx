@@ -11,11 +11,10 @@ async function getPageData(query) {
 }
 
 export default async function ArtPage({ slug, homepage, year }) {
-  const query = year ? 
-  `*[${homepage ? 'homepage == true' : `slug.current == "${slug}"`
+  const query = year ? `*[${homepage ? 'homepage == true' : `slug.current == "${slug}"`
     }][0]{
       page_heading,
-      "gallery": art_gallery[date match "${year}*"] | order(date desc) {
+      "gallery": art_gallery[date match "${year}"] | order(date desc) {
         key,
         date,
         title,
@@ -26,9 +25,8 @@ export default async function ArtPage({ slug, homepage, year }) {
         medium,
         'url': image.asset -> url ,
       }
-    }` : 
-    `*[${homepage ? 'homepage == true' : `slug.current == "${slug}"`
-    }][0]{
+    }` : `*[${homepage ? 'homepage == true' : `slug.current == "${slug}"`
+  }][0]{
       page_heading,
       "gallery": art_gallery[] | order(date desc) {
         key,
@@ -44,7 +42,6 @@ export default async function ArtPage({ slug, homepage, year }) {
     }`
   const data = await getPageData(query);
   const {page_heading, gallery} = data ?? {};
-  console.log(gallery)
   
   return (
     data &&

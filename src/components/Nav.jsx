@@ -21,7 +21,7 @@ async function fetchData() {
     const artPages = res.filter(page => page.type === 'art_page').map(item => (
       {
       ...item,
-      slug: item.homepage ? '' : item.slug,
+      // slug: item.homepage ? '' : item.slug,
       years: item.years.map((year) => year && year.slice(0, year.indexOf('-')))
     }));
     const nonArtPages = res.filter(page => page.type === 'non_art_page');
@@ -37,7 +37,9 @@ export default async function Nav(){
 
   return (
     <nav className='w-48 h-full flex flex-col m-9'>
-      Jess Ackerman
+      <Link href={'/'}>
+        Jess Ackerman
+      </Link>
       <Image 
         src="/logo-placeholder.png"
         width={500}
