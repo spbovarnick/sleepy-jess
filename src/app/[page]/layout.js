@@ -1,8 +1,9 @@
 
-export default function PageLayout({ children }) {
+export default function PageLayout(props) {
   return (
     <section>
-      {children}
+      {props.children}
+      {props.artModal}
     </section>
   )
 }

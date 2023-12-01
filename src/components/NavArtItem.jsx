@@ -14,16 +14,16 @@ export default function NavArtItem({ data, key }) {
 
   return(
     <>
-      <li className="flex items-center">
+      <li className="flex items-center cursor-pointer">
         <Link href={`/${slug}`}>
           {navTitle}
         </Link>
-        { years.every(x => x) > 0 && 
-          <img className="inline-block" src={showYears ? "/caret-down-light.svg" : "/caret-right-light.svg"} onClick={e => handleClick(e)} />
+        { years && years.every(x => x) > 0 && 
+          <img className="inline-block ml-1.5 " src={showYears ? "/caret-down-light.svg" : "/caret-right-light.svg"} onClick={e => handleClick(e)} />
         }
       </li>
-      <ul className="years-list ml-1" style={{display: showYears ? 'block' : 'none'}}>
-        {years.map(year => (
+      <ul className="years-list" style={{display: showYears ? 'block' : 'none'}}>
+        {years?.map(year => (
           year &&
           <li key={year + slug}>
             <Link href={`/${slug}?year=${year}`}>

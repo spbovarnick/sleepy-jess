@@ -1,7 +1,7 @@
 import getPageData from "@/utils/api/getPageData"
 
-export default async function NonArtPage({slug, page_type}) {
-  const query = `*[_type == "${page_type}" && slug.current == "${slug}"][0]{
+export default async function NonArtPage({slug}) {
+  const query = `*[_type == "non_art_page" && slug.current == "${slug}"][0]{
     page_heading,
     page_type,
     defined(friends_gallery) => {
@@ -24,13 +24,12 @@ export default async function NonArtPage({slug, page_type}) {
       },
     },
   }`
-
+  
   const data = await getPageData(query)
-  data && console.log(data)
 
   return(
     <>
-      <h1></h1>
+      <h1>{data.page_heading}</h1>
     </>
   )
 }

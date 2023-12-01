@@ -15,6 +15,7 @@ export default async function ArtPage({ slug, homepage, year }) {
         blurb,
         medium,
         'url': image.asset -> url ,
+        "slug": artwork_slug.current
       }
     }` : `*[${homepage ? 'homepage == true' : `slug.current == "${slug}"`
   }][0]{
@@ -29,6 +30,7 @@ export default async function ArtPage({ slug, homepage, year }) {
         blurb,
         medium,
         'url': image.asset -> url ,
+        "slug": artwork_slug.current
       }
     }`
   const data = await getPageData(query);
@@ -41,9 +43,9 @@ export default async function ArtPage({ slug, homepage, year }) {
         {year && 
           <h2>{year}</h2>
         }
-        <div className="gallery-wrapper grid grid-cols-1 justify-items-center">
+        <div className="gallery-wrapper grid gap-y-5 grid-cols-1 justify-items-center">
           {gallery.length > 0 && gallery.map(artwork => (
-            <GalleryCard key={artwork.key} artwork={artwork} />          
+            <GalleryCard key={artwork.key} artwork={artwork} page_slug={slug} />
           ))}
         </div>
       </>

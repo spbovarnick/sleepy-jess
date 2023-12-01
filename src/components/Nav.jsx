@@ -22,7 +22,7 @@ async function fetchData() {
       {
       ...item,
       // slug: item.homepage ? '' : item.slug,
-      years: item.years.map((year) => year && year.slice(0, year.indexOf('-')))
+      years: item.years?.map((year) => year && year.slice(0, year.indexOf('-')))
     }));
     const nonArtPages = res.filter(page => page.type === 'non_art_page');
     return { artPages, nonArtPages}

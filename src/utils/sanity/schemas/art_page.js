@@ -77,6 +77,16 @@ export default {
                           validation: Rule => Rule.required(),
                       },
                       {
+                          name: 'artwork_slug',
+                          title: 'Artwork Slug',
+                          type: 'slug',
+                          description: 'The slug that will appear in the URL for this artwork',
+                          options: {
+                              source: (doc, context) => context.parent.title
+                          },
+                          validation: Rule => Rule.required(),
+                      },
+                      {
                         name: 'alt',
                         title: 'Alt Text',
                         type: 'string',
