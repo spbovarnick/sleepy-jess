@@ -1,3 +1,4 @@
+import { Providers } from './providers';
 import './globals.css'
 import Nav from '@/components/Nav';
 
@@ -9,11 +10,15 @@ export const metadata = {
 export default function RootLayout({ children }) { 
   return (
     <html lang="en">
-      <body className='flex' id='appElement'>
-        <Nav />
-        <div className='w-full p-9'>
-          {children}
-        </div>
+      <body id='appElement'>
+        <Providers>
+          <div className='flex'>
+            <Nav />
+            <div className='w-full p-9'>
+              {children}
+            </div>
+          </div>
+        </Providers>
       </body>
     </html>
   )
