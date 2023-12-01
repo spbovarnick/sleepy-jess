@@ -1,66 +1,58 @@
 'use client'
-// import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
-// import Modal from "react-modal";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
-
-// Modal.setAppElement('body')
+import React from "react";
+import { Modal, ModalContent, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 
 export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slug}) {
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const router = useRouter();
-  // const params = useParams();
   const searchParams = useSearchParams();
   const year = searchParams.get('year')
-  // const artwork = searchParams.get('artwork')
-  // const page = params.page;
-  // const [modalIsOpen, setModalIsOpen] = useState(false);
+  const artwork = searchParams.get('artwork')
 
-  // useEffect(() => {
-  //   if (artwork) {
-  //     setModalIsOpen(true);
-  //   }
-  // }, [])
-
-  // const customStyles = {
-  //   content: {
-  //     top: '50%',
-  //     left: '50%',
-  //     right: 'auto',
-  //     bottom: 'auto',
-  //     marginRight: '-50%',
-  //     transform: 'translate(-50%, -50%)',
-  //   },
-  // };
+  useEffect(() => {
+    if (artwork && artwork === artwork_slug) {
+      onOpen();
+    } else {
+      if (isOpen) {
+        onOpenChange()
+      }
+    }
+  }, [])
 
   function openModal() {
-    // setModalIsOpen(true);
-    router.push(`${page_slug}${year ? "?year="+year : ''}/${artwork_slug}`)
+    onOpen()
+    router.push(`${page_slug}?${year ? `year=${year}&` : ''}artwork=${artwork_slug}`)
   }
 
-  // function closeModal() {
-  //   setModalIsOpen(false);
-  //   router.push(`${page}${year ? "?year=" + year : ''}`)
-  // }
 
-  // console.log(page, artwork_slug)
+  function closeModal(){
+    onOpenChange();
+    router.push(`${page_slug}?${year ? `year=${year}` : ''}`)
+  }
   
   return (
     <>
-      {/* <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Artwork Modal"
-      >
-        <Image
-          src={url}
-          width={500}
-          height={500}
-          alt={alt}
-        />
-      </Modal> */}
-      {/* <Link href={`${page_slug}/${artwork_slug}`}> */}
+      <Modal isOpen={isOpen} onClose={closeModal} hideCloseButton={true} >
+        <ModalContent>
+          {() => (
+            <>
+              <ModalBody>
+                <Image
+                  src={url}
+                  width={500}
+                  height={500}
+                  alt={alt}
+                  className='cursor-pointer'
+                />
+              </ModalBody>
+              <ModalFooter className="">{title}</ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
       <Image
         src={url}
         width={500}
@@ -69,7 +61,6 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
         onClick={openModal}
         className='cursor-pointer'
       />
-      {/* </Link> */}
     </>
   )
 }
