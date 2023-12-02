@@ -39,10 +39,6 @@ export default async function ArtPage({ slug, homepage, year }) {
   return (
     data &&
       <>
-        <h1>{page_heading}</h1>
-        {year && 
-          <h2>{year}</h2>
-        }
         <div className="gallery-wrapper grid gap-y-5 grid-cols-1 justify-items-center">
           {gallery.length > 0 && gallery.map(artwork => (
             <GalleryCard key={artwork.key} artwork={artwork} page_slug={slug} />

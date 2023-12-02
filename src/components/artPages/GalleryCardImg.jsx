@@ -35,7 +35,18 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
   
   return (
     <>
-      <Modal isOpen={isOpen} onClose={closeModal} hideCloseButton={true} >
+      <Modal 
+        isOpen={isOpen} 
+        onClose={closeModal} 
+        hideCloseButton={true} 
+        size={"5xl"} 
+        placement={"center"}
+        backdrop={"opaque"}
+        classNames={{
+          base: "rounded p-8 border-0",
+          body: "flex items-center justify-center"
+        }}
+      >
         <ModalContent>
           {() => (
             <>
@@ -45,10 +56,12 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
                   width={500}
                   height={500}
                   alt={alt}
-                  className='cursor-pointer'
+                  className='cursor-pointer max-w-[75vh] max-h-[75vh] h-[75vh] w-[auto]'
                 />
               </ModalBody>
-              <ModalFooter className="">{title}</ModalFooter>
+              <ModalFooter className="flex justify-start p-4 pb-0">
+                <span className="font-bold italic text-lg">{title}</span>
+              </ModalFooter>
             </>
           )}
         </ModalContent>
