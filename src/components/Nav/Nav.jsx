@@ -14,7 +14,7 @@ async function fetchData() {
         orderRank,
         _id,
         defined(art_gallery[].date) => {
-          'years': art_gallery[].date
+          'years': art_gallery[]|order(date desc).date
         }
       }`
 

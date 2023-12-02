@@ -1,6 +1,6 @@
 import { Providers } from './providers';
 import './globals.css'
-import Nav from '@/components/Nav';
+import Nav from '@/components/Nav/Nav';
 import { Josefin_Sans } from 'next/font/google'
 
 const josefinSans = Josefin_Sans({
