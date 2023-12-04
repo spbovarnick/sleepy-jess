@@ -39,9 +39,9 @@ export default async function ArtPage({ slug, homepage, year }) {
   return (
     data &&
       <>
-        <div className="gallery-wrapper grid gap-y-5 grid-cols-1 justify-items-center">
-          {gallery.length > 0 && gallery.map(artwork => (
-            <GalleryCard key={artwork.key} artwork={artwork} page_slug={slug} />
+        <div className="gallery-wrapper grid gap-y-10 grid-cols-1 justify-items-center">
+          {gallery.length > 0 && gallery.map((artwork, i) => (
+            <GalleryCard key={artwork.key} artwork={artwork} page_slug={slug} index={i} />
           ))}
         </div>
       </>

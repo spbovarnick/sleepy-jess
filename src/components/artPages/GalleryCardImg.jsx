@@ -24,13 +24,13 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
 
   function openModal() {
     onOpen()
-    router.push(`${page_slug}?${year ? `year=${year}&` : ''}artwork=${artwork_slug}`)
+    router.push(`${page_slug ? page_slug : ""}?${year ? `year=${year}&` : ''}artwork=${artwork_slug}`)
   }
 
 
   function closeModal(){
     onOpenChange();
-    router.push(`${page_slug}?${year ? `year=${year}` : ''}`)
+    router.push(`${page_slug ? page_slug : ""}?${year ? `year=${year}` : ''}`)
   }
   
   return (
@@ -56,7 +56,7 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
                   width={500}
                   height={500}
                   alt={alt}
-                  className='cursor-pointer max-w-[75vh] max-h-[75vh] h-[75vh] w-[auto]'
+                  className='cursor-pointer max-w-[75vh] max-h-[75vh] h-[75vh] w-full w-[auto] object-contain'
                 />
               </ModalBody>
               <ModalFooter className="flex justify-start p-4 pb-0">
@@ -72,7 +72,7 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
         height={500}
         alt={alt}
         onClick={openModal}
-        className='cursor-pointer'
+        className='cursor-pointer object-contain w-3/5'
       />
     </>
   )
