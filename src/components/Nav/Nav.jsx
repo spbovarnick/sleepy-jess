@@ -32,52 +32,38 @@ async function fetchData() {
   }
 }
 
+async function fetchLogo() {
+  try {
+    const query = `*[_type == 'logo'][0]{
+      "logoUrl": logo.asset->url
+    }`
+    const res = await client.fetch(query);
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
 export default async function Nav(){
   const {artPages, nonArtPages} = await fetchData();
+  const {logoUrl} = await fetchLogo();
 
   return (
-    <nav className='w-48 h-full flex flex-col m-9'>
-      <Link href={'/'}>
-        Jess Ackerman
-      </Link>
+    <nav className='md:w-48 h-full flex flex-col md:m-9'>
+      <div className="flex justify-between order-2 px-9 md:order-1 md:px-0">
+        <Link href={'/'} className="text-xl" >
+          Jess Ackerman
+        </Link>
+        <span className="md:hidden">menu</span>
+      </div>
       <Image 
-        src="/logo-placeholder.png"
+        src={logoUrl}
         width={500}
         height={500}
         alt="Jess Ackerman's web logo"
+        className="my-4 hidden md:block"
       />
-      {/* <div className="primary-nav">
-        <ul>
-          {artPages.length > 0 && (
-            artPages.map( (link) => (
-              <NavArtItem key={link._id} data={link} homepage={link.hompeage} />
-            ))
-          )}
-          <li className="hover:text-sky-500">
-            <Link href={'https://sleepyjess.bigcartel.com/'} >
-              Shop
-            </Link>
-          </li>
-        </ul>
-      </div>
-      <div className="secondary-nav">
-        <ul>
-          {nonArtPages.length > 0 &&
-            nonArtPages.map( (link) => (
-              <li key={link._id + link.slug} className="hover:text-sky-500">
-                <Link href={`/${link.slug}`}>
-                  {link.navTitle}
-                </Link>
-              </li>
-            ))
-          }
-          <li className="hover:text-sky-500">
-            <Link href={'/contact'}>
-              Contact
-            </Link>
-          </li>
-        </ul>
-      </div> */}
       <ClientNav artPages={artPages} nonArtPages={nonArtPages} />
     </nav>
   )

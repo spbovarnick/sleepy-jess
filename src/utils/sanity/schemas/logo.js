@@ -7,7 +7,7 @@ export default {
             name: 'logo',
             type: 'image',
             title: 'Logo',
-            description: 'Your logo'
+            description: 'The logo that will appear in the nav menu'
         }
     ]
 }

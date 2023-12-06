@@ -16,11 +16,11 @@ export const metadata = {
 export default function RootLayout({ children }) { 
   return (
     <html lang="en" className={josefinSans.className}>
-      <body id='appElement' className=''>
+      <body>
         <Providers>
-          <div className='flex'>
+          <div className='flex flex-col md:flex-row'>
             <Nav />
-            <div className='w-full p-9'>
+            <div className='md:w-full p-9'>
               {children}
             </div>
           </div>

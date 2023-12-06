@@ -8,7 +8,7 @@ export default function GalleryCard({artwork, page_slug, index}){
 
   
   return (
-    <div className="w-full flex ">
+    <div className="w-full flex px-[10%]">
       <GalleryCardImg url={url} alt={alt} title={title} artwork_slug={slug} page_slug={page_slug} />
       <div className={`info flex flex-col justify-end w-2/5 ${infoClassNames}`}>
         <p className="text-lg"><span className="font-bold italic">{title},</span> <span>{date.substring(0, date.indexOf('-'))}</span></p>

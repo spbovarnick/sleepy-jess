@@ -72,7 +72,7 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
         height={500}
         alt={alt}
         onClick={openModal}
-        className='cursor-pointer object-contain w-3/5'
+        className='cursor-pointer object-contain w-1/2 hover:opacity-75 ease-linear duration-200'
       />
     </>
   )

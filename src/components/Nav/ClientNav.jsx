@@ -11,24 +11,17 @@ export default function ClientNav({artPages, nonArtPages}) {
   const searchParams = useSearchParams();
   const yearParam = searchParams.get('year');
   const { page } = params
-  const [selectedPage, setSelectedPage] = useState(null)
-
-  // sets state that is used to assign text color indicating selected page
-  function handlePageSelect(e) {
-    e.preventDefault();
-    setSelectedPage(e.target.innerText)
-  }
 
   return (
-    <>
+    <div className="client-nav overflow-hidden order-1 bg-orange-500 m-0 text-center text-white md:text-black md:h-fit md:order-2 md:bg-white md:text-left">
       <div className="primary-nav">
         <ul>
           {artPages.length > 0 && (
             artPages.map( (link) => (
-              <NavArtItem key={link._id} data={link} handlePageSelect={handlePageSelect} selectedPage={selectedPage} pageParam={page} yearParam={yearParam} />
+              <NavArtItem key={link._id} data={link} pageParam={page} yearParam={yearParam} />
             ))
           )}
-          <li className="hover:text-sky-500">
+          <li className={`opacity-60 hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200`}>
             <Link href={'https://sleepyjess.bigcartel.com/'} >
               Shop
             </Link>
@@ -39,24 +32,23 @@ export default function ClientNav({artPages, nonArtPages}) {
         <ul>
           {nonArtPages.length > 0 &&
             nonArtPages.map( (link) => (
-              <li key={link._id + link.slug} className="hover:text-sky-500">
-                <span onClick={e => handlePageSelect(e)} className={page === link.slug ? "text-orange-500" : ""}>
-                  <Link href={`/${link.slug}`}>
-                    {link.navTitle}
-                  </Link>
-                </span>
+              <li 
+                key={link._id + link.slug} 
+                className={`hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200 ${page === link.slug ? "opacity-100 md:text-orange-500" : "opacity-60"}`}
+              >
+                <Link href={`/${link.slug}`}>
+                  {link.navTitle}
+                </Link>
               </li>
             ))
           }
-          <li className="hover:text-sky-500">
-            <span onClick={e => handlePageSelect(e)} className={pathname === "/contact" ? "text-orange-500" : ""}>
-              <Link href={'/contact'}>
-                Contact
-              </Link>
-            </span>
+          <li className={`hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200 ${pathname === "/contact" ? "opacity-100 md:text-orange-500" : "opacity-60"}`}>
+            <Link href={'/contact'}>
+              Contact
+            </Link>
           </li>
         </ul>
       </div>
-    </>
+    </div>
   )
 }
