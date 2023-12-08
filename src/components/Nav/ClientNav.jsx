@@ -1,5 +1,6 @@
 'use client'
 
+import './nav.css'
 import { useState } from "react"
 import { useParams, usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
@@ -11,9 +12,18 @@ export default function ClientNav({artPages, nonArtPages}) {
   const searchParams = useSearchParams();
   const yearParam = searchParams.get('year');
   const { page } = params
+  const [showNav, setShowNav] = useState(false);
+
+  function toggleMobileNav(){
+    return setShowNav(!showNav)
+  }
+
+  
 
   return (
-    <div className="client-nav overflow-hidden order-1 bg-orange-500 m-0 text-center text-white md:text-black md:h-fit md:order-2 md:bg-white md:text-left">
+    <>
+    <button onClick={toggleMobileNav} className="absolute bottom-6 right-0 mr-4 hover:text-sky-500 active:text-sky-500 ease-linear duration-200 md:hidden">menu</button>
+    <div className={`${showNav ? 'max-h-96' : 'max-h-0'} client-nav overflow-hidden order-1 bg-orange-500 m-0 text-center text-white md:text-black md:h-fit md:order-3 md:bg-white md:text-left md:max-h-full`} id='client-nav'>
       <div className="primary-nav">
         <ul>
           {artPages.length > 0 && (
@@ -22,13 +32,14 @@ export default function ClientNav({artPages, nonArtPages}) {
             ))
           )}
           <li className={`opacity-60 hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200`}>
-            <Link href={'https://sleepyjess.bigcartel.com/'} >
+            <Link href={'https://sleepyjess.bigcartel.com/'} target='_blank' >
               Shop
             </Link>
           </li>
         </ul>
       </div>
-      <div className="secondary-nav">
+      <hr className='my-5 border' />
+      <div className="secondary-nav text-md text-slate-700">
         <ul>
           {nonArtPages.length > 0 &&
             nonArtPages.map( (link) => (
@@ -50,5 +61,6 @@ export default function ClientNav({artPages, nonArtPages}) {
         </ul>
       </div>
     </div>
+    </>
   )
 }

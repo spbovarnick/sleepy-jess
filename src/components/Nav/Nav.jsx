@@ -50,19 +50,22 @@ export default async function Nav(){
   const {logoUrl} = await fetchLogo();
 
   return (
-    <nav className='md:w-48 h-full flex flex-col md:m-9'>
-      <div className="flex justify-between order-2 px-9 md:order-1 md:px-0">
+    <nav className='h-full relative flex flex-col md:min-w-fit md:m-9'>
+      <div className="ml-4 mt-2 order-2 md:order-1 md:m-0" >
         <Link href={'/'} className="text-xl" >
           Jess Ackerman
         </Link>
-        <span className="md:hidden">menu</span>
+        <br/>
+        <Link href={'https://www.instagram.com/sleepyjess/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=='} className="text-sm text-gray-600 pl-2" target="_blank">
+          @sleepyjess
+        </Link>
       </div>
       <Image 
         src={logoUrl}
-        width={500}
-        height={500}
+        width={100}
+        height={100}
         alt="Jess Ackerman's web logo"
-        className="my-4 hidden md:block"
+        className="my-4 hidden order-2 md:block object-fit w-full"
       />
       <ClientNav artPages={artPages} nonArtPages={nonArtPages} />
     </nav>

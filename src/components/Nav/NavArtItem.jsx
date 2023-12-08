@@ -1,5 +1,6 @@
 'use client'
 
+import './nav.css'
 import Link from "next/link"
 import { useState } from "react";
 
@@ -13,7 +14,7 @@ export default function NavArtItem({ data, handlePageSelect, pageParam, yearPara
 
   return(
     <>
-      <li className={`md:flex items-center cursor-pointer hover:opacity-100 md:hover:text-sky-500 my-2 md:opacity-100 ease-linear duration-200 ${pageParam === slug || homepage && pageParam === undefined ? "opacity-100 md:text-orange-500" : "opacity-60"}`} >
+      <li className={`md:flex items-center cursor-pointer hover:opacity-100 md:hover:text-sky-500 my-1 md:opacity-100 ease-linear duration-200 ${pageParam === slug || homepage && pageParam === undefined ? "opacity-100 md:text-orange-500" : "opacity-60"}`} >
         <Link href={`/${slug}`} >
           {navTitle}
         </Link>
@@ -25,10 +26,10 @@ export default function NavArtItem({ data, handlePageSelect, pageParam, yearPara
           />
         }
       </li>
-      <ul className={`hidden md:block years-list overflow-hidden transition-all duration-1000 ease-linear ${showYears ? 'max-h-screen' : 'max-h-0'}`}>
+      <ul className={`hidden md:block years-list overflow-hidden  ${showYears ? 'max-h-96' : 'max-h-0'}`} id="year-menu">
         {years?.map(year => (
           year &&
-          <li key={year + slug} className={`hover:text-sky-500 ${pageParam === slug && yearParam == year ? "text-orange-500" : ""}`}>
+          <li key={year + slug} className={`hover:text-sky-500 ease-linear duration-200 ${pageParam === slug && yearParam == year ? "text-orange-500" : ""}`}>
             <Link 
               href={`/${slug}?year=${year}`}
               className="text-sm pl-2 leading-none"
