@@ -1,6 +1,5 @@
 import { PortableText } from "@portabletext/react"
 import getPageData from "@/utils/api/getPageData"
-import Link from "next/link"
 
 const components = {
   marks: {
@@ -10,17 +9,25 @@ const components = {
           href={value?.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline"
+          className="underline hover:text-sky-500 transition-all"
         >
           {children}
         </a>
       )
     }
+  },
+  list: {
+    bullet: ({children}) => <ul className="list-disc list-inside">{children}</ul>,
+    number: ({children}) => <ol className="list-inside list-decimal">{children}</ol>,
+  },
+  listItem: {
+    bullet: ({children}) => <li >{children}</li>
   }
 }
 
 export default async function NonArtPage({slug}) {
   const query = `*[_type == "non_art_page" && slug.current == "${slug}"][0]{
+    _id,
     page_heading,
     page_type,
     blurb,
@@ -50,7 +57,8 @@ export default async function NonArtPage({slug}) {
   return(
     data &&
     <>
-      <h1>{data?.page_heading}</h1>
+      <h1 className="text-2xl">{data?.page_heading}</h1>
+      <br/>
       <PortableText 
         value={data.blurb}
         components={components}
