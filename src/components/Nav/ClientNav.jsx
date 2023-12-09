@@ -18,7 +18,7 @@ export default function ClientNav({artPages, nonArtPages}) {
     return setShowNav(!showNav)
   }
 
-  
+
 
   return (
     <>
@@ -32,20 +32,20 @@ export default function ClientNav({artPages, nonArtPages}) {
             ))
           )}
           <li className={`opacity-60 hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200`}>
-            <Link href={'https://sleepyjess.bigcartel.com/'} target='_blank' >
+            <a href={'https://sleepyjess.bigcartel.com/'} target='_blank' rel='noopener noreferrer'>
               Shop
-            </Link>
+            </a>
           </li>
         </ul>
       </div>
-      <hr className='my-5 border' />
-      <div className="secondary-nav text-md text-slate-700">
+      <hr className='my-5 border hidden md:block' />
+      <div className="secondary-nav">
         <ul>
           {nonArtPages.length > 0 &&
             nonArtPages.map( (link) => (
               <li 
                 key={link._id + link.slug} 
-                className={`hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200 ${page === link.slug ? "opacity-100 md:text-orange-500" : "opacity-60"}`}
+                className={`hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200 md:text-slate-700 text-md ${page === link.slug ? "opacity-100 md:text-orange-500" : "opacity-60"}`}
               >
                 <Link href={`/${link.slug}`}>
                   {link.navTitle}

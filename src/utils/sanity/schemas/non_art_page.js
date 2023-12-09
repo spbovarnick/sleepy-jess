@@ -49,8 +49,9 @@ export default {
         {
             title: 'Blurb',
             name: 'blurb',
-            type: 'text',
             description: 'A blurb describing the contents or subject matter of the page',
+            type: 'array',
+            of: [{type: 'block'}],
         },
         {
             name: 'friends_gallery',

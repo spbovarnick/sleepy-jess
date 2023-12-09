@@ -21,7 +21,7 @@
     "next-sanity": "^5.5.10",
     "react": "^18",
     "react-dom": "^18",
-    "sanity": "^3.19.1",
+    "sanity": "^3.21.1",
     "styled-components": "^6.1.0"
   },
   "devDependencies": {
