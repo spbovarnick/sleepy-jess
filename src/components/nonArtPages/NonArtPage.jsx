@@ -1,3 +1,6 @@
+'use server'
+
+import Carousel from "./Carousel";
 import { PortableText } from "@portabletext/react"
 import getPageData from "@/utils/api/getPageData"
 
@@ -53,11 +56,14 @@ export default async function NonArtPage({slug}) {
   }`
   
   const data = await getPageData(query)
-
+  console.log(data)
   return(
     data &&
     <>
       <h1 className="text-2xl">{data?.page_heading}</h1>
+      { data?.gallery && 
+        <Carousel gallery={data?.gallery}></Carousel>
+      }
       <br/>
       <PortableText 
         value={data.blurb}

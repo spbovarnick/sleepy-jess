@@ -22,7 +22,8 @@
     "react": "^18",
     "react-dom": "^18",
     "sanity": "^3.21.1",
-    "styled-components": "^6.1.0"
+    "styled-components": "^6.1.0",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

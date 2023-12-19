@@ -4,7 +4,7 @@ import './nav.css'
 import Link from "next/link"
 import { useState } from "react";
 
-export default function NavArtItem({ data, handlePageSelect, pageParam, yearParam }) {
+export default function NavArtItem({ data, pageParam, yearParam }) {
   const { years, navTitle, slug, homepage } = data;
   const [showYears, setShowYears] = useState(false);
 
