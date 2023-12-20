@@ -18,8 +18,6 @@ export default function ClientNav({artPages, nonArtPages}) {
     return setShowNav(!showNav)
   }
 
-
-
   return (
     <>
     <button onClick={toggleMobileNav} className="absolute bottom-6 right-0 mr-4 hover:text-sky-500 active:text-sky-500 ease-linear duration-200 md:hidden">menu</button>
@@ -45,7 +43,7 @@ export default function ClientNav({artPages, nonArtPages}) {
             nonArtPages.map( (link) => (
               <li 
                 key={link._id + link.slug} 
-                className={`hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200 md:text-slate-700 text-md ${page === link.slug ? "opacity-100 md:text-orange-500" : "opacity-60"}`}
+                className={`hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200 text-slate-700 text-md ${page === link.slug ? "opacity-100 md:text-orange-500" : "opacity-60"}`}
               >
                 <Link href={`/${link.slug}`}>
                   {link.navTitle}
@@ -53,7 +51,7 @@ export default function ClientNav({artPages, nonArtPages}) {
               </li>
             ))
           }
-          <li className={`hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200 ${pathname === "/contact" ? "opacity-100 md:text-orange-500" : "opacity-60"}`}>
+            <li className={`hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200 text-slate-700 text-md ${pathname === "/contact" ? "opacity-100 md:text-orange-500" : "opacity-60"}`}>
             <Link href={'/contact'}>
               Contact
             </Link>

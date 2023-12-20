@@ -1,8 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { client } from "@/utils/sanity/lib/client";
-// import NavArtItem from "./NavArtItem";
 import ClientNav from "./ClientNav";
+import { sanityFetch } from "@/utils/api/sanityFetch";
 
 async function fetchData() {
   try {
@@ -18,7 +17,11 @@ async function fetchData() {
         }
       }`
 
-    const res = await client.fetch(query)
+    const res = await sanityFetch({
+      query: query,
+      qParams: {},
+      tags: ['art_page', 'non_art_page']
+    })
     const artPages = res.filter(page => page.type === 'art_page').map(item => (
       {
       ...item,
@@ -37,7 +40,12 @@ async function fetchLogo() {
     const query = `*[_type == 'logo'][0]{
       "logoUrl": logo.asset->url
     }`
-    const res = await client.fetch(query);
+    // const res = await client.fetch(query);
+    const res = await sanityFetch({
+      query: query,
+      qParams: {},
+      tags: ['logo']
+    })
     return res;
   } catch (err) {
     console.log(err);

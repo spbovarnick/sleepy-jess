@@ -2,7 +2,6 @@
 
 import Carousel from "./Carousel";
 import { PortableText } from "@portabletext/react"
-import getPageData from "@/utils/api/getPageData"
 
 const components = {
   marks: {
@@ -28,40 +27,13 @@ const components = {
   }
 }
 
-export default async function NonArtPage({slug}) {
-  const query = `*[_type == "non_art_page" && slug.current == "${slug}"][0]{
-    _id,
-    page_heading,
-    page_type,
-    blurb,
-    defined(friends_gallery) => {
-      "gallery": friends_gallery[] | order(orderRank) {
-        first_name,
-        last_name,
-        blurb,
-        friend_url,
-        'img_url': photo.asset -> url,
-        'img_alt': photo.alt
-      },
-    },
-    defined(process_gallery) => {
-      "gallery": process_gallery[] | order(orderRank) {
-        'img_url': photo.asset -> url,
-        'img_alt': photo.alt,
-        'caption': photo.caption,
-        'attribution': photo.attribution,
-        blurb
-      },
-    },
-  }`
-  
-  const data = await getPageData(query)
-  console.log(data)
+export default async function NonArtPage({data}) {
+  console.log(data?.page_type)
   return(
     data &&
     <>
       <h1 className="text-2xl">{data?.page_heading}</h1>
-      { data?.gallery && 
+      { data?.gallery && data?.page_type !== 'about' &&
         <Carousel gallery={data?.gallery}></Carousel>
       }
       <br/>

@@ -28,7 +28,8 @@ export default {
             options: {
                 list: [
                     {title: 'Friends', value: 'friends'},
-                    {title: 'Process/About/Studio', value: 'process'},
+                    {title: 'Process/Studio', value: 'process'},
+                    {title: 'About', value: 'about'}
                 ],
                 layout: 'radio'
             },
