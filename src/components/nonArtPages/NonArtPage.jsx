@@ -1,9 +1,9 @@
-'use server'
+"use server";
 
 import Carousel from "./Carousel";
 import { PortableText } from "@portabletext/react"
 
-const components = {
+const blurbComponents = {
   marks: {
     link: ({value, children}) => {
       return (
@@ -28,18 +28,18 @@ const components = {
 }
 
 export default async function NonArtPage({data}) {
-  console.log(data?.page_type)
+  
   return(
     data &&
     <>
       <h1 className="text-2xl">{data?.page_heading}</h1>
-      { data?.gallery && data?.page_type !== 'about' &&
-        <Carousel gallery={data?.gallery}></Carousel>
+      { data?.gallery && data?.page_type === 'about' &&
+        <Carousel gallery={data?.gallery} ></Carousel>
       }
       <br/>
       <PortableText 
         value={data.blurb}
-        components={components}
+        components={blurbComponents}
       />
 
     </>

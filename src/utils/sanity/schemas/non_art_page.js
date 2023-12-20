@@ -127,7 +127,7 @@ export default {
             title: 'Process/Studio Gallery',
             type: 'array',
             description: 'A gallery of process/studio photos to be featured on this page',
-            hidden: ({document}) => document?.page_type !== 'process',
+            hidden: ({document}) => document?.page_type !== 'process' && document?.page_type !== 'about',
             of: [
                 {
                     name: 'process',
