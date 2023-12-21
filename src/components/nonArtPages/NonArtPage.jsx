@@ -29,7 +29,6 @@ const blurbComponents = {
 }
 
 export default async function NonArtPage({data}) {
-  console.log(data)
   
   return(
     data &&
