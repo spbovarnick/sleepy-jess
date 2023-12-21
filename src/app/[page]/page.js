@@ -73,6 +73,7 @@ export default async function Page({ params, searchParams }) {
     blurb,
     defined(friends_gallery) => {
       "gallery": friends_gallery[] | order(orderRank) {
+        "key": _key,
         first_name,
         last_name,
         blurb,
@@ -83,6 +84,7 @@ export default async function Page({ params, searchParams }) {
     },
     defined(process_gallery) => {
       "gallery": process_gallery[] | order(orderRank) {
+        "key": _key,
         'img_url': photo.asset -> url,
         'img_alt': photo.alt,
         'caption': photo.caption,

@@ -13,13 +13,6 @@ swiper-slide {
   align-items: center;
 }
 
-/* .swiper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-} */
-
 swiper-container::part(button-prev),
 swiper-container::part(button-next) {
   transition: all .4s linear;
@@ -27,4 +20,12 @@ swiper-container::part(button-next) {
 swiper-container::part(button-prev):hover,
 swiper-container::part(button-next):hover {
   transform: scale(1.2);
+}
+
+swiper-container::part(bullet-active) {
+  transform: scale(1.2);
+}
+
+swiper-container::part(bullet) {
+  transition: transform .4s ease;
 }

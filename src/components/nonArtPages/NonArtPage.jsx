@@ -1,6 +1,7 @@
 "use server";
 
 import Carousel from "./Carousel/Carousel";
+import ProcessGalleryCard from "./Gallery/ProcessGalleryCard";
 import { PortableText } from "@portabletext/react"
 
 const blurbComponents = {
@@ -28,18 +29,26 @@ const blurbComponents = {
 }
 
 export default async function NonArtPage({data}) {
+  console.log(data)
   
   return(
     data &&
     <>
-      <h1 className="text-2xl md:mb-5">{data?.page_heading}</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="h-fit order-last md:order-first">
+      <h1 className="text-2xl mb-2 md:mb-8">{data?.page_heading}</h1>
+      <div className={data.page_type === 'about' ? "grid grid-cols-1 md:grid-cols-2 gap-4" : ""}>
+        <div className={`h-fit ${data.page_type === 'about' ? "order-last md:order-first" : "mb-2"}`}>
           <PortableText 
             value={data.blurb}
             components={blurbComponents}
           />
         </div>
+        { data.gallery && data.page_type === 'process' && 
+          <div className="grid gap-y-10 grid-cols-1 justify-items-center">
+            {data.gallery.map((item, i) => (
+              <ProcessGalleryCard key={item.key} item={item} index={i} />
+            ))}
+          </div>
+        }
         { data?.gallery && data?.page_type === 'about' &&
           <div className="">
             <Carousel gallery={data?.gallery} ></Carousel>

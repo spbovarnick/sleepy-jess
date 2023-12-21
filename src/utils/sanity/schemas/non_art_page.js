@@ -162,6 +162,12 @@ export default {
                                 },
                             ]
                         },
+                        {
+                            name: 'blurb',
+                            title: 'Blurb',
+                            type: 'text',
+                            description: "Anything additional you'd like to add about the image (this won't show up on 'About' pages)"
+                        },
                         orderRankField({ type: 'category' }),
                     ]
                 }
