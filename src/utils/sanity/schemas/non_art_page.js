@@ -162,12 +162,6 @@ export default {
                                 },
                             ]
                         },
-                        {
-                            name: 'blurb',
-                            title: 'Blurb',
-                            type: 'text',
-                            description: "Anything additional you'd like to add about the image"
-                        },
                         orderRankField({ type: 'category' }),
                     ]
                 }

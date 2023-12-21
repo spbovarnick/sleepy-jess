@@ -1,6 +1,6 @@
 "use server";
 
-import Carousel from "./Carousel";
+import Carousel from "./Carousel/Carousel";
 import { PortableText } from "@portabletext/react"
 
 const blurbComponents = {
@@ -32,16 +32,21 @@ export default async function NonArtPage({data}) {
   return(
     data &&
     <>
-      <h1 className="text-2xl">{data?.page_heading}</h1>
-      { data?.gallery && data?.page_type === 'about' &&
-        <Carousel gallery={data?.gallery} ></Carousel>
-      }
-      <br/>
-      <PortableText 
-        value={data.blurb}
-        components={blurbComponents}
-      />
-
+      <h1 className="text-2xl md:mb-5">{data?.page_heading}</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="h-fit order-last md:order-first">
+          <PortableText 
+            value={data.blurb}
+            components={blurbComponents}
+          />
+        </div>
+        { data?.gallery && data?.page_type === 'about' &&
+          <div className="">
+            <Carousel gallery={data?.gallery} ></Carousel>
+          </div>
+        }
+        {/* <br/> */}
+      </div>
     </>
   )
 }
