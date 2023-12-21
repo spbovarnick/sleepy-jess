@@ -4,7 +4,7 @@ import GalleryCardImg from "./GalleryCardImg";
 export default function GalleryCard({artwork, page_slug, index}){
   const {date, title, alt, width, height, blurb, medium, url, slug} = artwork ?? artwork;
 
-  const infoClassNames = index % 2 === 0 ? "text-left pl-2 order-last" : "text-right pr-2 order-first"
+  const infoClassNames = index % 2 === 0 ? "text-right pr-2 order-first" : "text-left pl-2 order-last"
 
   
   return (

@@ -1,7 +1,7 @@
 "use server";
 
 import Carousel from "./Carousel/Carousel";
-import ProcessGalleryCard from "./Gallery/ProcessGalleryCard";
+import NAGalleryCard from "./Gallery/NAGalleryCard";
 import { PortableText } from "@portabletext/react"
 
 const blurbComponents = {
@@ -42,10 +42,10 @@ export default async function NonArtPage({data}) {
             components={blurbComponents}
           />
         </div>
-        { data.gallery && data.page_type === 'process' && 
+        { data.gallery && data.page_type !== 'about' && 
           <div className="grid gap-y-10 grid-cols-1 justify-items-center">
             {data.gallery.map((item, i) => (
-              <ProcessGalleryCard key={item.key} item={item} index={i} />
+              <NAGalleryCard key={item.key} item={item} index={i} page_type={data.page_type} />
             ))}
           </div>
         }

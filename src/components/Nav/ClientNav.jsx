@@ -29,7 +29,7 @@ export default function ClientNav({artPages, nonArtPages}) {
               <NavArtItem key={link._id} data={link} pageParam={page} yearParam={yearParam} />
             ))
           )}
-          <li className={`opacity-60 hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200`}>
+          <li className={`opacity-60 my-1 hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200`}>
             <a href={'https://sleepyjess.bigcartel.com/'} target='_blank' rel='noopener noreferrer'>
               Shop
             </a>

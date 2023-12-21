@@ -78,17 +78,11 @@ export default {
                     orderings: [orderRankOrdering],
                     fields: [
                         {
-                            name: 'first_name',
-                            title: 'First Name',
+                            name: 'name',
+                            title: 'Name',
                             type: 'string',
-                            description: "Friend's first name",
+                            description: "Friend's name as you want it to appear on the site",
                             validation: Rule => Rule.required(),
-                        },
-                        {
-                            name: 'last_name',
-                            title: 'Last Name',
-                            type: 'string',
-                            description: "Friend's last name"
                         },
                         orderRankField({ type: 'category' }),
                         {
@@ -102,6 +96,22 @@ export default {
                             type: 'url',
                             title: "URL",
                             description: "Link to friend's work/website"
+                        },
+                        {
+                            name: 'friend_url_text',
+                            type: 'string',
+                            title: 'URL Text',
+                            description: "Text to display for the link to friend's work/website; this will appear below their blurb",
+                            validation: Rule => Rule.custom((text, context) => {
+                                if (context.document.friend_url) {
+                                    if (text) {
+                                        return true
+                                    } else {
+                                        return 'If you provide a URL, you must also provide text for the link'
+                                    }
+                                }
+                                return true
+                            }).error('If you provide a URL, you must also provide text for the link'),
                         },
                         {
                             name: 'photo',

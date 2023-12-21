@@ -74,10 +74,10 @@ export default async function Page({ params, searchParams }) {
     defined(friends_gallery) => {
       "gallery": friends_gallery[] | order(orderRank) {
         "key": _key,
-        first_name,
-        last_name,
+        name,
         blurb,
         friend_url,
+        friend_url_text,
         'img_url': photo.asset -> url,
         'img_alt': photo.alt
       },

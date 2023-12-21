@@ -64,7 +64,7 @@ export default async function Nav(){
           Jess Ackerman
         </Link>
         <br/>
-        <Link href={'https://www.instagram.com/sleepyjess/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=='} className="text-sm text-gray-600 pl-2" target="_blank">
+        <Link href={'https://www.instagram.com/sleepyjess/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=='} className="text-sm text-gray-600 pl-2 hover:text-sky-500 transition-all" target="_blank">
           @sleepyjess
         </Link>
       </div>
