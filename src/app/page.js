@@ -27,7 +27,6 @@ export default async function Home() {
     });
   } catch (error) {
     console.error("Error fetching data:", error);
-    // Handle the error here, e.g. show an error message to the user
     return null;
   }
 

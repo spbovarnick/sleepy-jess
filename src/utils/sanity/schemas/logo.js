@@ -8,6 +8,12 @@ export default {
             type: 'image',
             title: 'Logo',
             description: 'The logo that will appear in the nav menu'
+        },
+    ],
+    preview: {
+        select: {
+            title: 'logo.asset.originalFilename',
+            media: 'logo'
         }
-    ]
+    }
 }

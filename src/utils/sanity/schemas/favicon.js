@@ -9,5 +9,11 @@ export default {
             type: 'image',
             description: 'This image is the icon that will appear in browser tabs'
         }
-    ]
+    ],
+    preview: {
+        select: {
+            title: 'favicon.asset.originalFilename',
+            media: 'favicon'
+        }
+    }
 }

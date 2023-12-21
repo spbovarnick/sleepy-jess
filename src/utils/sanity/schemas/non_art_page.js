@@ -183,5 +183,22 @@ export default {
                 }
             ]
         }
-    ]
+    ],
+    preview: {
+        select: {
+            title: 'page_heading',
+            type: 'page_type',
+        },
+        prepare({title, type}) {
+            const EMOJIS = {
+                about: 'ℹ️',
+                friends: '👯‍♀️',
+                process: '📸',
+            }
+            return {
+                title: title,
+                media: <span style={{fontSize: '1.5rem'}}>{EMOJIS[type]}</span>,   
+            }
+        }
+    }
 }

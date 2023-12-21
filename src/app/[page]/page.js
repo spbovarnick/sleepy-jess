@@ -27,6 +27,18 @@ async function fetchPageType(query){
   }
 }
 
+export async function generateMetadata({ params, searchParams }, parent) {
+  const page = params.page
+
+  const query = `*[_type in ['art_page', 'non_art_page'] && slug.current == "${page}"][0]{page_heading}`
+
+  const data = await sanityFetch({ query: query, qParams: page, tags: ['art_page', 'non_art_page']  })
+  
+  return {
+    title: `${data.page_heading} - Jess Ackerman`
+  }
+}
+
 export default async function Page({ params, searchParams }) {
   const { page } = params 
   const query = `*[_type  in ['art_page', 'non_art_page'] && slug.current == "${page}"][0]{

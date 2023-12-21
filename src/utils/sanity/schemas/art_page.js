@@ -121,5 +121,11 @@ export default {
               }
           ]
       },
-  ]
+  ],
+  preview: {
+    select: {
+        title: 'page_heading',
+        media: 'art_gallery.0.image'
+    }
+  }
 }
