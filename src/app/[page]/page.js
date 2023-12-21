@@ -35,7 +35,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
   const data = await sanityFetch({ query: query, qParams: page, tags: ['art_page', 'non_art_page']  })
   
   return {
-    title: `${data.page_heading} - Jess Ackerman`
+    title: `${data?.page_heading} - Jess Ackerman`
   }
 }
 

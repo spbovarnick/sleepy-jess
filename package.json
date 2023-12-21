@@ -16,7 +16,7 @@
     "@sanity/image-url": "^1.0.2",
     "@sanity/orderable-document-list": "^1.1.0",
     "@sanity/vision": "^3.19.1",
-    "framer-motion": "^10.16.12",
+    "framer-motion": "^10.16.16",
     "next": "^14.0.4",
     "next-sanity": "^7.0.4",
     "nodemailer": "^6.9.7",

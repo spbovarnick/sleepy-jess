@@ -5,7 +5,7 @@ import { Josefin_Sans } from 'next/font/google'
 import { sanityFetch } from '@/utils/api/sanityFetch';
 
 async function faviData() {
-  const faviQuery = `*[_type == 'favicon'][0]{
+  const faviQuery = `*[_type == 'favicon'][0] | order(_createdAt desc){
     'favicon_url': favicon.asset -> url ,
   }`
   const data = await sanityFetch({ query: faviQuery, qParams: {}, tags: ['favicon']  })
@@ -22,13 +22,11 @@ export const metadata = {
   description: "Artist Jess Ackerman's portfolio",
 }
 
-export default async function RootLayout({ children }) { 
-  const data = await faviData();
-  console.log(data.favicon_url);
+export default function RootLayout({ children }) { 
 
   return (
     <html lang="en" className={josefinSans.className}>
-      <link rel="icon" href={data.favicon_url} type='image/png'/>
+      {/* <link rel="icon" href={data.favicon_url} type='image/png' /> */}
       <body>
         <Providers>
           <div className='flex flex-col md:flex-row'>

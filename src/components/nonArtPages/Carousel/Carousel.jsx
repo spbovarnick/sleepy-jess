@@ -1,4 +1,5 @@
 'use client';
+import { motion } from 'framer-motion'; 
 import { useEffect, useRef } from 'react';
 import { register }  from 'swiper/element/bundle';
 import Image from 'next/image';
@@ -23,7 +24,7 @@ export default function Carousel({gallery}) {
   }, [])
   
   return (
-    <>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .3 }} >
       <swiper-container 
         css-mode="true"
         init="false"
@@ -58,6 +59,6 @@ export default function Carousel({gallery}) {
           </swiper-slide>
         ))}
       </swiper-container>
-    </>
+    </motion.div>
   )
 }
