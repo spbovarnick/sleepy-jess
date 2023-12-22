@@ -42,13 +42,14 @@ export async function generateMetadata({ params, searchParams }, parent) {
 
 export default async function Page({ params, searchParams }) {
   const { page } = params 
+  const { year } = searchParams
   const query = `*[_type  in ['art_page', 'non_art_page'] && slug.current == "${page}"][0]{
       'type': _type,
     }`
   const typeData = await fetchPageType(query)
   const type = typeData?.type
   const artQuery =
-    searchParams.year ? `*[_type == 'art_page' && slug.current == $slug][0]{
+    year ? `*[_type == 'art_page' && slug.current == $slug][0]{
       page_heading,
       "gallery": art_gallery[date match $year] | order(date desc) {
         "key": _key,
@@ -110,7 +111,7 @@ export default async function Page({ params, searchParams }) {
   try {
     pageData = await sanityFetch({
       query: type === 'art_page' ? artQuery : nonArtQuery,
-      qParams: { slug: page, year: `${searchParams.year}` },
+      qParams: { slug: page, year: `${year}` },
       tags: ['art_page', 'non_art_page']
     });
   } catch (error) {
