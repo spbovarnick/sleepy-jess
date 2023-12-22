@@ -1,6 +1,6 @@
 import GalleryCard from "./GalleryCard"
 
-export default async function ArtPage({ data }) {
+export default function ArtPage({ data }) {
   
   const { gallery, slug} = data ?? {};
   

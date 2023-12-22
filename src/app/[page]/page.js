@@ -40,19 +40,12 @@ export async function generateMetadata({ params, searchParams }, parent) {
 }
 
 export default async function Page({ params, searchParams }) {
-  console.log(searchParams.year)
   const { page } = params 
   const query = `*[_type  in ['art_page', 'non_art_page'] && slug.current == "${page}"][0]{
       'type': _type,
     }`
-  let typeData, type;
-  try {
-    typeData = await fetchPageType(query)
-    type = typeData?.type
-  } catch (error) {
-    console.error("Error fetching _type data:", error);
-    return null;
-  }
+  const typeData = await fetchPageType(query)
+  const type = typeData?.type
   const artQuery =
     searchParams.year ? `*[_type == 'art_page' && slug.current == $slug][0]{
       page_heading,
@@ -113,53 +106,24 @@ export default async function Page({ params, searchParams }) {
     },
   }`
   let pageData;
-  if (type === 'art_page') {
-    try {
-      pageData = await sanityFetch({
-        query:  artQuery,
-        qParams: { slug: page, year: `${searchParams.year}` },
-        tags: ['art_page']
-      });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      // Handle the error here, e.g. show an error message to the user
-      return null;
-    }
-  } else {
-    try {
-      pageData = await sanityFetch({
-        query: nonArtQuery,
-        qParams: { slug: page, year: `${searchParams.year}` },
-        tags: ['non_art_page']
-      });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      // Handle the error here, e.g. show an error message to the user
-      return null;
-    }
+  try {
+    pageData = await sanityFetch({
+      query: type === 'art_page' ? artQuery : nonArtQuery,
+      qParams: { slug: page, year: `${searchParams.year}` },
+      tags: ['art_page', 'non_art_page']
+    });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    // Handle the error here, e.g. show an error message to the user
+    return null;
   }
-
-  // try {
-  //   pageData = await sanityFetch({
-  //     query: type === 'art_page' ? artQuery : nonArtQuery,
-  //     qParams: { slug: page, year: `${searchParams.year}` },
-  //     tags: ['art_page', 'non_art_page']
-  //   });
-  // } catch (error) {
-  //   console.error("Error fetching data:", error);
-  //   // Handle the error here, e.g. show an error message to the user
-  //   return null;
-  // }
     
  
   return (
       <>
-      { type === 'art_page' &&
-        <ArtPage data={pageData} /> 
-      }
-      { type === 'non_art_page' &&
-        <NonArtPage data={pageData} />
-      }
+      { type === 'art_page' ?
+        <ArtPage data={pageData} /> :
+        <NonArtPage data={pageData} />}
       </>
   )
 }
