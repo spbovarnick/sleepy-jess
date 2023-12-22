@@ -1,4 +1,4 @@
-// import "server-only"
+import "server-only"
 import { client } from "../sanity/lib/client";
 
 export async function sanityFetch({ 

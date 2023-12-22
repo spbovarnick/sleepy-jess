@@ -2,7 +2,6 @@ import { Providers } from './providers';
 import './globals.css'
 import Nav from '@/components/Nav/Nav';
 import { Josefin_Sans } from 'next/font/google'
-import { sanityFetch } from '@/utils/api/sanityFetch';
 
 const josefinSans = Josefin_Sans({
   subsets: ['latin'],
