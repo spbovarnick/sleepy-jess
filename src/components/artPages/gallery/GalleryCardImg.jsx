@@ -1,11 +1,11 @@
 'use client'
-import { useEffect } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, {useEffect} from "react";
 import { Modal, ModalContent, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
+import './gallery.css'
 
-export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slug}) {
+export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slug, first}) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -21,6 +21,14 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
       }
     }
   }, [artwork, artwork_slug, isOpen, onOpen, onOpenChange])
+
+  // useEffect(() => {
+  //   const galleryImages = document.querySelectorAll('.gallery-card-image');
+  //   if (galleryImages.length > 0) {
+  //     galleryImages[0].style.height = 'calc(100vh - 124px)';
+  //   }
+  // }, []);
+
 
   function openModal() {
     onOpen()
@@ -38,13 +46,12 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
       <Modal 
         isOpen={isOpen} 
         onClose={closeModal} 
-        hideCloseButton={true} 
         size={"5xl"} 
         placement={"center"}
         backdrop={"opaque"}
         classNames={{
-          base: "rounded p-8 border-0",
-          body: "flex items-center justify-center"
+          base: "rounded border-0",
+          closeButton: "top-0 right-0"
         }}
       >
         <ModalContent>
@@ -56,7 +63,7 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
                   width={500}
                   height={500}
                   alt={alt}
-                  className='cursor-pointer max-w-[75vh] max-h-[75vh] h-[75vh] w-full w-[auto] object-contain'
+                  className='cursor-pointer max-w-full max-h-full h-full w-full py-4 md:max-w-[80vh] md:max-w-[80vw] md:h-[80vh] md:w-auto object-contain'
                 />
               </ModalBody>
               <ModalFooter className="flex justify-start p-4 pb-0">
@@ -72,7 +79,7 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
         height={500}
         alt={alt}
         onClick={openModal}
-        className='cursor-pointer object-contain w-1/2 hover:opacity-75 ease-linear duration-200'
+        className={`${first && 'first-gallery-card-image'} cursor-pointer object-contain w-full md:h-[calc(100vh-40px)] hover:opacity-75 ease-linear duration-200`}
       />
     </>
   )

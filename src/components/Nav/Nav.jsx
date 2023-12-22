@@ -58,7 +58,7 @@ export default async function Nav(){
   const {logoUrl} = await fetchLogo();
 
   return (
-    <nav className='h-full relative flex flex-col md:min-w-fit md:m-9'>
+    <nav className='h-full relative flex flex-col md:min-w-fit md:p-9 md:sticky md:top-0'>
       <div className="ml-4 mt-2 order-2 md:order-1 md:m-0" >
         <Link href={'/'} className="text-xl" >
           Jess Ackerman

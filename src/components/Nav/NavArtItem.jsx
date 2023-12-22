@@ -4,7 +4,7 @@ import './nav.css'
 import Link from "next/link"
 import { useState } from "react";
 
-export default function NavArtItem({ data, pageParam, yearParam }) {
+export default function NavArtItem({ data, pageParam, yearParam, toggleMobileNav }) {
   const { years, navTitle, slug, homepage } = data;
   const [showYears, setShowYears] = useState(false);
 
@@ -15,7 +15,7 @@ export default function NavArtItem({ data, pageParam, yearParam }) {
   return(
     <>
       <li className={`md:flex items-center cursor-pointer hover:opacity-100 md:hover:text-sky-500 my-1 md:opacity-100 ease-linear duration-200 ${pageParam === slug ? "opacity-100 md:text-orange-500" : "opacity-60"}`} >
-        <Link href={`/${slug}`} >
+        <Link href={`/${slug}`} onClick={toggleMobileNav}>
           {navTitle}
         </Link>
         { years && years.every(x => x) > 0 && 

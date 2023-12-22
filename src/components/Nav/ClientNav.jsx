@@ -20,13 +20,13 @@ export default function ClientNav({artPages, nonArtPages}) {
 
   return (
     <>
-    <button onClick={toggleMobileNav} className="absolute bottom-6 right-0 mr-4 hover:text-sky-500 active:text-sky-500 ease-linear duration-200 md:hidden">menu</button>
+    <button onClick={toggleMobileNav} className="absolute bottom-6 right-0 mr-4 hover:text-sky-500 active:text-sky-500 ease-linear duration-200 md:hidden">{!showNav ? 'menu' : 'close'}</button>
     <div className={`${showNav ? 'max-h-96' : 'max-h-0'} client-nav overflow-hidden order-1 bg-orange-500 m-0 text-center text-white md:text-black md:h-fit md:order-3 md:bg-white md:text-left md:max-h-full`} id='client-nav'>
       <div className="primary-nav">
         <ul>
           {artPages.length > 0 && (
             artPages.map( (link) => (
-              <NavArtItem key={link._id} data={link} pageParam={page} yearParam={yearParam} />
+              <NavArtItem key={link._id} data={link} pageParam={page} yearParam={yearParam} toggleMobileNav={toggleMobileNav} />
             ))
           )}
           <li className={`opacity-60 my-1 hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200`}>
@@ -45,7 +45,7 @@ export default function ClientNav({artPages, nonArtPages}) {
                 key={link._id + link.slug} 
                 className={`hover:opacity-100 md:hover:text-sky-500 md:opacity-100 ease-linear duration-200 text-slate-700 text-md ${page === link.slug ? "opacity-100 md:text-orange-500" : "opacity-60"}`}
               >
-                <Link href={`/${link.slug}`}>
+                <Link href={`/${link.slug}`} onClick={toggleMobileNav} >
                   {link.navTitle}
                 </Link>
               </li>
