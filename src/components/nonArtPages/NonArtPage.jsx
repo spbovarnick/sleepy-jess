@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import Carousel from "./Carousel/Carousel";
 import NAGalleryCard from "./Gallery/NAGalleryCard";
@@ -53,7 +53,6 @@ export default async function NonArtPage({data}) {
             <Carousel gallery={data?.gallery} ></Carousel>
           </div>
         }
-        {/* <br/> */}
       </div>
     </>
   )
