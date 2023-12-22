@@ -40,44 +40,14 @@ export async function generateMetadata({ params, searchParams }, parent) {
   }
 }
 
-export default async function Page({ params, searchParams }) {
+export default async function Page({ params }) {
   const { page } = params 
   const query = `*[_type  in ['art_page', 'non_art_page'] && slug.current == "${page}"][0]{
       'type': _type,
     }`
   const typeData = await fetchPageType(query)
   const type = typeData?.type
-  const artQuery =
-    searchParams.year ? `*[_type == 'art_page' && slug.current == $slug][0]{
-      page_heading,
-      "gallery": art_gallery[date match $year] | order(date desc) {
-        "key": _key,
-        date,
-        title,
-        alt,
-        width,
-        height,
-        blurb,
-        medium,
-        'url': image.asset -> url ,
-        "slug": artwork_slug.current
-      }
-    }` :
-    `*[_type == 'art_page' && slug.current == $slug][0]{
-      page_heading,
-      "gallery": art_gallery[] | order(date desc) {
-        "key": _key,
-        date,
-        title,
-        alt,
-        width,
-        height,
-        blurb,
-        medium,
-        'url': image.asset -> url ,
-        "slug": artwork_slug.current
-      }
-    }`
+  
 
   const nonArtQuery = `*[_type == "non_art_page" && slug.current == $slug][0]{
     _id,
@@ -109,8 +79,8 @@ export default async function Page({ params, searchParams }) {
   let pageData;
   try {
     pageData = await sanityFetch({
-      query: type === 'art_page' ? artQuery : nonArtQuery,
-      qParams: { slug: page, year: `${searchParams.year}` },
+      query:  nonArtQuery,
+      qParams: { slug: page},
       tags: ['art_page', 'non_art_page']
     });
   } catch (error) {
@@ -124,7 +94,7 @@ export default async function Page({ params, searchParams }) {
       <>
       <Suspense fallback={<>Loading...</>}>
       { type === 'art_page' ?
-        <ArtPage data={pageData} /> :
+        <ArtPage page={page} /> :
         <NonArtPage data={pageData} />}
       </Suspense>
       </>
