@@ -4,6 +4,8 @@ import ArtPage from "@/components/artPages/ArtPage"
 import NonArtPage from "@/components/nonArtPages/NonArtPage"
 import { Suspense } from "react";
 
+export const dynamic ='force-static';
+
 export async function generateStaticParams() {
   try {
     const query = `*[_type in ['art_page', 'non_art_page']]{
