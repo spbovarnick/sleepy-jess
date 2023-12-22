@@ -4,7 +4,7 @@ import ArtPage from "@/components/artPages/ArtPage"
 import NonArtPage from "@/components/nonArtPages/NonArtPage"
 import { Suspense } from "react";
 
-export const dynamic ='force-static';
+export const dynamic ='force-dynamic';
 
 export async function generateStaticParams() {
   try {
