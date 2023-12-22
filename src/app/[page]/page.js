@@ -39,7 +39,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
   }
 }
 
-export default async function Page({ params, searchParams }) {
+export default async function Page({ params }) {
   const { page } = params 
   const query = `*[_type  in ['art_page', 'non_art_page'] && slug.current == "${page}"][0]{
       'type': _type,
@@ -121,9 +121,11 @@ export default async function Page({ params, searchParams }) {
  
   return (
       <>
+      <Suspense fallback={<>Loading...</>}>
       { type === 'art_page' ?
         <ArtPage data={pageData} /> :
         <NonArtPage data={pageData} />}
+      </Suspense>
       </>
   )
 }
