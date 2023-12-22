@@ -20,7 +20,7 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
         onOpenChange()
       }
     }
-  }, [])
+  }, [artwork, artwork_slug, isOpen, onOpen, onOpenChange])
 
   function openModal() {
     onOpen()

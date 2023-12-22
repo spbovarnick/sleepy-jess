@@ -23,6 +23,7 @@ export default function NavArtItem({ data, pageParam, yearParam }) {
             className={`hidden md:block inline-block ml-1.5 hover:opacity-50 ease-linear duration-200 ${showYears ? "rotate-90" : ""}`} 
             src={"/caret-right-light.svg"} 
             onClick={e => handleClick()} 
+            about='caret'
           />
         }
       </li>

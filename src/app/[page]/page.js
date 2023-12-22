@@ -44,8 +44,14 @@ export default async function Page({ params, searchParams }) {
   const query = `*[_type  in ['art_page', 'non_art_page'] && slug.current == "${page}"][0]{
       'type': _type,
     }`
-  const typeData = await fetchPageType(query)
-  const type = typeData?.type
+  let typeData, type;
+  try {
+    typeData = await fetchPageType(query)
+    type = typeData?.type
+  } catch (error) {
+    console.error("Error fetching _type data:", error);
+    return null;
+  }
   const artQuery =
     searchParams.year ? `*[_type == 'art_page' && slug.current == $slug][0]{
       page_heading,
