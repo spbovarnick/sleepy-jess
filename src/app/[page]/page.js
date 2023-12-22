@@ -40,6 +40,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
 }
 
 export default async function Page({ params, searchParams }) {
+  console.log(searchParams.year)
   const { page } = params 
   const query = `*[_type  in ['art_page', 'non_art_page'] && slug.current == "${page}"][0]{
       'type': _type,

@@ -1,5 +1,3 @@
-"use client";
-
 import Carousel from "./Carousel/Carousel";
 import NAGalleryCard from "./Gallery/NAGalleryCard";
 import { PortableText } from "@portabletext/react"

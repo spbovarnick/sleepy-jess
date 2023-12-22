@@ -1,4 +1,3 @@
-'use client'
 import GalleryCard from "./GalleryCard"
 
 export default async function ArtPage({ data }) {
