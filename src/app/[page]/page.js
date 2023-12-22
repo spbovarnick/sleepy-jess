@@ -113,24 +113,53 @@ export default async function Page({ params, searchParams }) {
     },
   }`
   let pageData;
-  try {
-    pageData = await sanityFetch({
-      query: type === 'art_page' ? artQuery : nonArtQuery,
-      qParams: { slug: page, year: `${searchParams.year}` },
-      tags: ['art_page', 'non_art_page']
-    });
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    // Handle the error here, e.g. show an error message to the user
-    return null;
+  if (type === 'art_page') {
+    try {
+      pageData = await sanityFetch({
+        query:  artQuery,
+        qParams: { slug: page, year: `${searchParams.year}` },
+        tags: ['art_page']
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      // Handle the error here, e.g. show an error message to the user
+      return null;
+    }
+  } else {
+    try {
+      pageData = await sanityFetch({
+        query: nonArtQuery,
+        qParams: { slug: page, year: `${searchParams.year}` },
+        tags: ['non_art_page']
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      // Handle the error here, e.g. show an error message to the user
+      return null;
+    }
   }
+
+  // try {
+  //   pageData = await sanityFetch({
+  //     query: type === 'art_page' ? artQuery : nonArtQuery,
+  //     qParams: { slug: page, year: `${searchParams.year}` },
+  //     tags: ['art_page', 'non_art_page']
+  //   });
+  // } catch (error) {
+  //   console.error("Error fetching data:", error);
+  //   // Handle the error here, e.g. show an error message to the user
+  //   return null;
+  // }
     
  
   return (
       <>
-      { type === 'art_page' ?
-        <ArtPage data={pageData} /> :
-        <NonArtPage data={pageData} />}
+      { type === 'art_page' &&
+        <ArtPage data={pageData} /> 
+      }
+      { type === 'non_art_page' &&
+        <NonArtPage data={pageData} />
+      }
       </>
   )
 }
