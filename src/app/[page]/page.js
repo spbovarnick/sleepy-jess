@@ -2,6 +2,7 @@ import { client } from "@/utils/sanity/lib/client"
 import { sanityFetch } from "@/utils/api/sanityFetch";
 import ArtPage from "@/components/artPages/ArtPage"
 import NonArtPage from "@/components/nonArtPages/NonArtPage"
+import { Suspense } from "react"
 
 export async function generateStaticParams() {
   try {
