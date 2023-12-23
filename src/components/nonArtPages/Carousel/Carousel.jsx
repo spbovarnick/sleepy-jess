@@ -7,13 +7,16 @@ import './swiper.css';
 
 export default function Carousel({gallery}) {
   const swiperRef = useRef(null);
-
+  
   useEffect(() => {
     register();
 
     const params = {
+      // modules: [Navigation, Pagination],
       injectStylesURLs: [
-        './swiper.css'
+        './swiper.css',
+        'swiper/element/css/navigation',
+        'swiper/element/css/pagination'
       ],
       on: { init() {}}
     }
@@ -26,11 +29,8 @@ export default function Carousel({gallery}) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .3 }} >
       <swiper-container 
-        css-mode="true"
-        init="false"
         navigation="true" 
         pagination="true" 
-        lazy="true"
         ref={swiperRef} 
         style={{
           "--swiper-navigation-color": "rgb(14 165 233)",
@@ -39,14 +39,14 @@ export default function Carousel({gallery}) {
       >
         {gallery && gallery.map((slide, i) => (
           <swiper-slide key={i} >
-            <div className='m-auto max-h-[calc(100vh-124px)] md:max-h-[calc(100vh-78px)] object-contain flex flex-col pb-6' >
+            <div className='h-full md:h-[calc(100vh-150px)] w-auto object-contain flex flex-col justify-center pb-6' >
               <Image 
                 src={slide.img_url} 
                 alt={slide.img_alt} 
                 width={500}
                 height={500}
                 loading="lazy"
-                className='w-full h-full object-contain'
+                className='object-contain'
               />
               {slide.attribution && 
                 <p className={"text-gray-400 italic text-xs"}

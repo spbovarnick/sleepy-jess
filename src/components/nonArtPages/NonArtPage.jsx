@@ -22,7 +22,7 @@ const blurbComponents = {
     number: ({children}) => <ol className="list-inside list-decimal">{children}</ol>,
   },
   listItem: {
-    bullet: ({children}) => <li >{children}</li>
+    bullet: ({children}) => <li className="text-md">{children}</li>
   }
 }
 
@@ -32,8 +32,8 @@ export default function NonArtPage({data}) {
     data &&
     <>
       <h1 className="text-2xl mb-2 md:mb-8">{data?.page_heading}</h1>
-      <div className={data.page_type === 'about' ? "grid grid-cols-1 md:grid-cols-2 gap-4" : ""}>
-        <div className={`h-fit ${data.page_type === 'about' ? "order-last md:order-first" : "mb-2"}`}>
+      <div className={data.page_type === 'about' ? " max-w-full flex flex-col md:flex-row " : ""}>
+        <div className={`h-fit ${data.page_type === 'about' ? "mt-4 md:mt-0 order-last md:order-first shrink-0 w-max" : "mb-2"}`}>
           <PortableText 
             value={data.blurb}
             components={blurbComponents}

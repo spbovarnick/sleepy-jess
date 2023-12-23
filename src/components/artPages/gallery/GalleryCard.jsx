@@ -1,7 +1,6 @@
 'use client';
 import {motion} from 'framer-motion';
 import GalleryCardImg from "./GalleryCardImg";
-// import './gallery.css';
 
 export default function GalleryCard({artwork, page_slug, index, first}){
   const {date, title, alt, width, height, blurb, medium, url, slug} = artwork ?? artwork;
