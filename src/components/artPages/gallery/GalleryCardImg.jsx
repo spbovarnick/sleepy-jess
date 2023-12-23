@@ -66,7 +66,7 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
                   className='cursor-pointer max-w-full max-h-full h-full w-full py-4 md:max-w-[80vh] md:max-w-[80vw] md:h-[80vh] md:w-auto object-contain'
                 />
               </ModalBody>
-              <ModalFooter className="flex justify-start p-4 pb-0">
+              <ModalFooter className="flex justify-start pl-6 pt-0 pb-0 md:pb-4">
                 <span className="font-bold italic text-lg">{title}</span>
               </ModalFooter>
             </>
