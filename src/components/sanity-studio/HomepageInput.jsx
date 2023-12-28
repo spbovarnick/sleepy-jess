@@ -5,7 +5,7 @@ import { useFormBuilder, set, unset } from 'sanity'
 
 export const HomepageInput = (props) => {
     const { elementProps, value, onChange, schemaType } = props
-    const draftId = useFormBuilder().value._id
+    const draftId = useFormBuilder().value?._id
 
     const handleChange = useCallback((event) => {
         const checked = event.target.checked;
