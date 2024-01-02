@@ -68,13 +68,13 @@ export default async function Nav(){
           @sleepyjess
         </Link>
       </div>
-      <Image 
+      { logoUrl && <Image 
         src={logoUrl}
         width={100}
         height={100}
         alt="Jess Ackerman's web logo"
         className="my-4 hidden order-2 md:block object-fit w-full"
-      />
+      />}
       <ClientNav artPages={artPages} nonArtPages={nonArtPages} />
     </nav>
   )
