@@ -54,7 +54,7 @@ async function fetchLogo() {
 
 export default async function Nav(){
   const {artPages, nonArtPages} = await fetchData();
-  const logoUrl = await fetchLogo();
+  const logo = await fetchLogo();
 
   return (
     <nav className='h-full relative flex flex-col md:min-w-fit md:p-9 md:sticky md:top-0'>
@@ -67,13 +67,15 @@ export default async function Nav(){
           @sleepyjess
         </Link>
       </div>
-      { logoUrl && <Image 
-        src={logoUrl}
-        width={100}
-        height={100}
-        alt="Jess Ackerman's web logo"
-        className="my-4 hidden order-2 md:block object-fit w-full"
-      />}
+      { logo.logoUrl && 
+        <Image 
+          src={logo.logoUrl}
+          width={100}
+          height={100}
+          alt="Jess Ackerman's web logo"
+          className="my-4 hidden order-2 md:block object-fit w-full"
+        />
+      }
       <ClientNav artPages={artPages} nonArtPages={nonArtPages} />
     </nav>
   )
