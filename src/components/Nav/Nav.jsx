@@ -40,7 +40,6 @@ async function fetchLogo() {
     const query = `*[_type == 'logo'][0]{
       "logoUrl": logo.asset->url
     }`
-    // const res = await client.fetch(query);
     const res = await sanityFetch({
       query: query,
       qParams: {},
@@ -55,7 +54,7 @@ async function fetchLogo() {
 
 export default async function Nav(){
   const {artPages, nonArtPages} = await fetchData();
-  const {logoUrl} = await fetchLogo();
+  const logoUrl = await fetchLogo();
 
   return (
     <nav className='h-full relative flex flex-col md:min-w-fit md:p-9 md:sticky md:top-0'>

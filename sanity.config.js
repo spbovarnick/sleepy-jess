@@ -26,7 +26,17 @@ export default defineConfig({
           .items([
             orderableDocumentListDeskItem({ type: 'art_page', title: 'Artwork Pages', S, context }),
             orderableDocumentListDeskItem({ type: 'non_art_page', title: 'Non-Artwork Pages', S, context }),
-            ...S.documentTypeListItems().filter(listItem => !['art_page', 'non_art_page'].includes(listItem.getId()))
+            S.listItem()
+              .title('Logo')
+              .id('logo')
+              .icon(() => '™️')
+              .child(
+                S.document()
+                  .schemaType('logo')
+                  .documentId('logo')
+              ),
+            ...S.documentTypeListItems().filter(listItem => !['art_page', 'non_art_page', 'logo'].includes(listItem.getId())),
+
           ])
       }
     }),
