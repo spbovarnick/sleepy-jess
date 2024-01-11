@@ -55,6 +55,7 @@ async function fetchLogo() {
 export default async function Nav(){
   const {artPages, nonArtPages} = await fetchData();
   const logo = await fetchLogo();
+  const logoUrl = logo?.logoUrl;
 
   return (
     <nav className='h-full relative flex flex-col md:min-w-fit md:p-9 md:sticky md:top-0'>
@@ -67,9 +68,9 @@ export default async function Nav(){
           @sleepyjess
         </Link>
       </div>
-      { logo.logoUrl && 
+      { logoUrl && 
         <Image 
-          src={logo.logoUrl}
+          src={logoUrl}
           width={100}
           height={100}
           alt="Jess Ackerman's web logo"
