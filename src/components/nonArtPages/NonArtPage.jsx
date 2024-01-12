@@ -28,6 +28,8 @@ const blurbComponents = {
 }
 
 export default function NonArtPage({data}) {
+
+  // console.log(data);
   
   return(
     data &&

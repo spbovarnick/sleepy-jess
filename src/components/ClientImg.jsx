@@ -6,7 +6,7 @@ import { useNextSanityImage } from "next-sanity-image"
 import { urlForImage } from "@/utils/sanity/lib/image";
 
 
-export default function ClientImg({ img, sizes, classes }) {
+export default function ClientImg({ img, sizes, classes, noBlur }) {
   const imageProps = useNextSanityImage(client, img, {
     imageBuilder: urlForImage
   });
@@ -17,8 +17,8 @@ export default function ClientImg({ img, sizes, classes }) {
       alt={img.alt}
       sizes={sizes}
       quality={100}
-      placeholder="blur"
-      blurDataURL={img.asset.metadata.lqip}
+      placeholder={ "blur"}
+      blurDataURL={img?.asset?.metadata?.lqip}
       className={classes}
     />
   )

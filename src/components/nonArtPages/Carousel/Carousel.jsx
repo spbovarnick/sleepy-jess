@@ -41,19 +41,19 @@ export default function Carousel({gallery}) {
           <swiper-slide key={i} >
             <div className='h-full md:h-[calc(100vh-150px)] w-auto object-contain flex flex-col justify-center pb-6' >
               <Image 
-                src={slide.img_url} 
-                alt={slide.img_alt} 
+                src={slide.photo.asset.url} 
+                alt={slide.photo.alt} 
                 width={500}
                 height={500}
                 loading="lazy"
                 className='object-contain'
               />
-              {slide.attribution && 
+              {slide.photo.attribution && 
                 <p className={"text-gray-400 italic text-xs"}
-                >Photo by {slide.attribution}</p>
+                >Photo by {slide.photo.attribution}</p>
               }
-              {slide.caption && 
-                <p className={"text=sm"}>{slide.caption}</p>
+              {slide.photo.caption && 
+                <p className={"text=sm"}>{slide.photo.caption}</p>
               }
             </div>
           </swiper-slide>

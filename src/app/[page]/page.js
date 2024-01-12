@@ -142,8 +142,6 @@ export default async function Page({ params, searchParams }) {
     // Handle the error here, e.g. show an error message to the user
     return null;
   }
-
-  // console.log(pageData)
     
   return (
       <>

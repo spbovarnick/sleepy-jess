@@ -6,8 +6,6 @@ export default function NAGalleryCard({item, index, page_type}){
   const { photo, caption, attribution, blurb, name, friend_url, friend_url_text } = item ?? item;
 
   const infoClassNames = "lg:text-left lg:pl-2 lg:order-last"
-
-  console.log(photo)
   
   return (
     // <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .3 }} >
