@@ -6,7 +6,7 @@ import Image from "next/image"
 export default function NAGalleryCard({item, index, page_type}){
   const { img_url, img_alt, caption, attribution, blurb, name, friend_url, friend_url_text } = item ?? item;
 
-  const infoClassNames = index % 2 === 0 ? "md:text-left md:pl-2 md:order-last" : "md:text-right md:pr-2 md:order-first"
+  const infoClassNames = "md:text-left md:pl-2 md:order-last"
   
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .3 }} >

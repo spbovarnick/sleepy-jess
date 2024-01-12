@@ -2,7 +2,6 @@ import { client } from "@/utils/sanity/lib/client"
 import { sanityFetch } from "@/utils/api/sanityFetch";
 import ArtPage from "@/components/artPages/ArtPage"
 import NonArtPage from "@/components/nonArtPages/NonArtPage"
-import { Suspense } from "react";
 
 export const dynamic ='force-dynamic';
 
@@ -125,11 +124,9 @@ export default async function Page({ params, searchParams }) {
  
   return (
       <>
-      <Suspense fallback={<div>Loading...</div>}>
       { type === 'art_page' ?
         <ArtPage data={pageData} /> :
         <NonArtPage data={pageData} />}
-      </Suspense>
       </>
   )
 }

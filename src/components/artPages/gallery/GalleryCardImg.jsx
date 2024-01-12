@@ -22,14 +22,6 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
     }
   }, [artwork, artwork_slug, isOpen, onOpen, onOpenChange])
 
-  // useEffect(() => {
-  //   const galleryImages = document.querySelectorAll('.gallery-card-image');
-  //   if (galleryImages.length > 0) {
-  //     galleryImages[0].style.height = 'calc(100vh - 124px)';
-  //   }
-  // }, []);
-
-
   function openModal() {
     onOpen()
     router.push(`${page_slug ? page_slug : ""}?${year ? `year=${year}&` : ''}artwork=${artwork_slug}`)

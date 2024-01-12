@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Carousel from "./Carousel/Carousel";
 import NAGalleryCard from "./Gallery/NAGalleryCard";
 import { PortableText } from "@portabletext/react"
@@ -32,8 +33,8 @@ export default function NonArtPage({data}) {
     data &&
     <>
       <h1 className="text-2xl mb-2 md:mb-8">{data?.page_heading}</h1>
-      <div className={data.page_type === 'about' ? " max-w-full flex flex-col md:flex-row " : "grid gap-y-10 grid-cols-1 justify-items-around"}>
-        <div className={`h-fit ${data.page_type === 'about' ? "mt-4 md:mt-0 order-last md:order-first shrink-0 w-max" : "mb-2"}`}>
+      <div className={data.page_type === 'about' ? " max-w-full flex flex-col lg:flex-row justify-around" : "grid gap-y-10 grid-cols-1 justify-items-around"}>
+        <div className={`h-fit ${data.page_type === 'about' ? "mt-4 lg:mt-0 order-last lg:order-first lg:w-2/5 lg:pr-6" : "mb-2"}`}>
           <PortableText 
             value={data.blurb}
             components={blurbComponents}
@@ -45,9 +46,11 @@ export default function NonArtPage({data}) {
           ))
         }
         { data?.gallery && data?.page_type === 'about' &&
-          <div className="">
-            <Carousel gallery={data?.gallery} ></Carousel>
-          </div>
+            <div className="lg:w-3/5">
+              <Suspense fallback={<div className="w-full h-full"></div>}>
+                  <Carousel gallery={data?.gallery} ></Carousel>
+              </Suspense>
+            </div>
         }
       </div>
     </>
