@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ClientNav from "./ClientNav";
 import { sanityFetch } from "@/utils/api/sanityFetch";
+import ClientImg from "../ClientImg";
 
 async function fetchData() {
   try {
@@ -38,7 +39,13 @@ async function fetchData() {
 async function fetchLogo() {
   try {
     const query = `*[_type == 'logo'][0]{
-      "logoUrl": logo.asset->url
+      logo{
+        alt,
+          asset->{
+            ...,
+            metadata
+          }
+      }
     }`
     const res = await sanityFetch({
       query: query,
@@ -55,7 +62,7 @@ async function fetchLogo() {
 export default async function Nav(){
   const {artPages, nonArtPages} = await fetchData();
   const logo = await fetchLogo();
-  const logoUrl = logo?.logoUrl;
+  const logoImg = logo?.logo;
 
   return (
     <nav className='h-full relative flex flex-col md:min-w-fit md:p-9 md:sticky md:top-0'>
@@ -68,14 +75,14 @@ export default async function Nav(){
           @sleepyjess
         </Link>
       </div>
-      { logoUrl && 
-        <Image 
-          src={logoUrl}
-          width={100}
-          height={100}
-          alt="Jess Ackerman's web logo"
-          className="my-4 hidden order-2 md:block object-fit w-full"
-        />
+      { logoImg && 
+        <div className="max-w-full my-4 hidden order-2 md:block flex max-w-[200px]">
+          <ClientImg 
+            img={logoImg}
+            sizes={"(min-wdith: 768px) 200px"}
+            classes={"hidden order-2 md:block  "}
+          />
+        </div>
       }
       <ClientNav artPages={artPages} nonArtPages={nonArtPages} />
     </nav>

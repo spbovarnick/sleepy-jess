@@ -1,11 +1,11 @@
 'use client'
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, {useEffect} from "react";
 import { Modal, ModalContent, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 import './gallery.css'
+import ClientImg from "@/components/ClientImg";
 
-export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slug, first}) {
+export default function GalleryCardImg({ img, alt, title, artwork_slug, page_slug, first}) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -32,7 +32,7 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
     onOpenChange();
     router.push(`${page_slug ? page_slug : ""}?${year ? `year=${year}` : ''}`)
   }
-  
+
   return (
     <>
       <Modal 
@@ -50,12 +50,10 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
           {() => (
             <>
               <ModalBody>
-                <Image
-                  src={url}
-                  width={500}
-                  height={500}
-                  alt={alt}
-                  className='cursor-pointer max-w-full max-h-full h-full w-full py-4 md:max-w-[80vh] md:max-w-[80vw] md:h-[80vh] md:w-auto object-contain'
+                <ClientImg 
+                  img={img}
+                  sizes={"(max-wdith: 1440px) 100vw, 50vw"}
+                  classes={'cursor-pointer max-w-full max-h-full h-full w-full py-4 md:max-w-[80vh] md:max-w-[80vw] md:h-[80vh] md:w-auto object-contain'}
                 />
               </ModalBody>
               <ModalFooter className="flex justify-start pl-6 pt-0 pb-0 md:pb-4">
@@ -65,14 +63,13 @@ export default function GalleryCardImg({ url, alt, title, artwork_slug, page_slu
           )}
         </ModalContent>
       </Modal>
-      <Image
-        src={url}
-        width={500}
-        height={500}
-        alt={alt}
-        onClick={openModal}
-        className={`${first && 'first-gallery-card-image'} cursor-pointer object-contain w-full md:h-[calc(100vh-40px)] hover:opacity-75 ease-linear duration-200`}
-      />
+      <div className="" onClick={openModal}>
+        <ClientImg 
+          img={img}
+          sizes={"(max-wdith: 1440px) 100vw, 50vw"}
+          classes={`${first && 'first-gallery-card-image'} cursor-pointer object-contain w-full md:h-[calc(100vh-40px)] hover:opacity-75 ease-linear duration-200`}
+        />
+      </div>
     </>
   )
 }

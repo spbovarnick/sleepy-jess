@@ -14,7 +14,7 @@ export default function NavArtItem({ data, pageParam, yearParam, toggleMobileNav
   
   return(
     <>
-      <li className={`md:flex items-center cursor-pointer hover:opacity-100 md:hover:text-sky-500 my-1 md:opacity-100 ease-linear duration-200 ${pageParam === slug ? "opacity-100 md:text-orange-500" : "opacity-60"}`} >
+      <li className={`md:w-fit md:flex items-center cursor-pointer hover:opacity-100 md:hover:text-sky-500 my-1 md:opacity-100 ease-linear duration-200 ${pageParam === slug ? "opacity-100 md:text-orange-500" : "opacity-60"}`} >
         <Link href={`/${slug}`} onClick={toggleMobileNav}>
           {navTitle}
         </Link>

@@ -21,7 +21,7 @@ export default function ClientNav({artPages, nonArtPages}) {
   return (
     <>
     <button onClick={toggleMobileNav} className="absolute bottom-6 right-0 mr-4 hover:text-sky-500 active:text-sky-500 ease-linear duration-200 md:hidden">{!showNav ? 'menu' : 'close'}</button>
-    <div className={`${showNav ? 'max-h-96' : 'max-h-0'} client-nav overflow-hidden order-1 bg-orange-500 m-0 text-center text-white md:text-black md:h-fit md:order-3 md:bg-white md:text-left md:max-h-full`} id='client-nav'>
+    <div className={`${showNav ? 'max-h-96' : 'max-h-0'} client-nav overflow-hidden order-1 bg-orange-500 m-0 text-center text-white md:text-black md:h-fit md:order-3 md:bg-white md:text-left md:max-h-full w-fit`} id='client-nav'>
       <div className="primary-nav">
         <ul>
           {artPages.length > 0 && (

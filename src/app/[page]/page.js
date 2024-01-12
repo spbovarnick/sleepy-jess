@@ -56,12 +56,17 @@ export default async function Page({ params, searchParams }) {
         "key": _key,
         date,
         title,
-        alt,
         width,
         height,
         blurb,
         medium,
-        'url': image.asset -> url ,
+        image{
+          alt,
+          asset -> {
+            ...,
+            metadata
+          }
+        },
         "slug": artwork_slug.current
       }
     }` :
@@ -76,7 +81,13 @@ export default async function Page({ params, searchParams }) {
         height,
         blurb,
         medium,
-        'url': image.asset -> url ,
+        image{
+          alt,
+          asset -> {
+            ...,
+            metadata
+          }
+        },
         "slug": artwork_slug.current
       }
     }`
@@ -121,7 +132,6 @@ export default async function Page({ params, searchParams }) {
     return null;
   }
     
- 
   return (
       <>
       { type === 'art_page' ?

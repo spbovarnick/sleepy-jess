@@ -61,6 +61,15 @@ export default {
                           type: 'image',
                           description: 'Image of the artwork',
                           validation: Rule => Rule.required(),
+                          fields: [
+                              {
+                                  name: 'alt',
+                                  title: 'Alt Text',
+                                  type: 'string',
+                                  description: 'Alt text is important for accessibility reasons. It should be a very brief description of the image',
+                                  validation: Rule => Rule.required(),
+                              },
+                          ]
                       },
                       {
                           name: 'date',
@@ -84,13 +93,6 @@ export default {
                           options: {
                               source: (doc, context) => context.parent.title
                           },
-                          validation: Rule => Rule.required(),
-                      },
-                      {
-                        name: 'alt',
-                        title: 'Alt Text',
-                        type: 'string',
-                        description: 'Alt text is important for accessibility reasons. It should be a very brief description of the image',
                           validation: Rule => Rule.required(),
                       },
                       {
