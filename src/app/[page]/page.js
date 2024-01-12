@@ -117,10 +117,15 @@ export default async function Page({ params, searchParams }) {
     defined(process_gallery) => {
       "gallery": process_gallery[] | order(orderRank) {
         "key": _key,
-        'img_url': photo.asset -> url,
-        'img_alt': photo.alt,
-        'caption': photo.caption,
-        'attribution': photo.attribution,
+        photo{
+          caption,
+          attribution,
+          alt,
+          asset -> {
+            ...,
+            metadata
+          }
+        },
         blurb
       },
     },
@@ -137,6 +142,8 @@ export default async function Page({ params, searchParams }) {
     // Handle the error here, e.g. show an error message to the user
     return null;
   }
+
+  // console.log(pageData)
     
   return (
       <>

@@ -10,7 +10,7 @@ export default function ClientImg({ img, sizes, classes }) {
   const imageProps = useNextSanityImage(client, img, {
     imageBuilder: urlForImage
   });
-
+  
   return (
     <Image
       {...imageProps}

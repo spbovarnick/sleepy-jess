@@ -40,7 +40,7 @@ export default function NonArtPage({data}) {
             components={blurbComponents}
           />
         </div>
-        { data.gallery && data.page_type !== 'about' && 
+        { data?.gallery && data?.page_type !== 'about' && 
           data.gallery.map((item, i) => (
             <NAGalleryCard key={item.key} item={item} index={i} page_type={data.page_type} />
           ))
