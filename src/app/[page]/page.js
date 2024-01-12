@@ -104,8 +104,14 @@ export default async function Page({ params, searchParams }) {
         blurb,
         friend_url,
         friend_url_text,
-        'img_url': photo.asset -> url,
-        'img_alt': photo.alt
+        photo{
+          alt,
+          asset -> {
+            ...,
+            metadata
+          }
+        },
+        
       },
     },
     defined(process_gallery) => {

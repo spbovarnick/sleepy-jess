@@ -1,23 +1,20 @@
 'use client'
+import ClientImg from '@/components/ClientImg';
 import {motion} from 'framer-motion';
-import Image from "next/image"
-
 
 export default function NAGalleryCard({item, index, page_type}){
-  const { img_url, img_alt, caption, attribution, blurb, name, friend_url, friend_url_text } = item ?? item;
+  const { photo, caption, attribution, blurb, name, friend_url, friend_url_text } = item ?? item;
 
-  const infoClassNames = "md:text-left md:pl-2 md:order-last"
+  const infoClassNames = "lg:text-left lg:pl-2 lg:order-last"
   
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .3 }} >
-      <div className="w-full flex flex-col md:flex-row">
+      <div className="w-full flex flex-col lg:flex-row">
         <div className="w-full h-auto">
-          <Image 
-            src={img_url}
-            width={500}
-            height={500}
-            alt={img_alt}
-            className='object-contain h-auto w-full'
+          <ClientImg 
+            img={photo}
+            sizes={"(max-width: 1024px) 100vw, (min-width: 1024px) 50vw"}
+            classes={"object-contain h-auto w-full"}
           />
           { attribution && 
             <p className="text-gray-400 italic text-xs">Photo by {attribution}</p>
