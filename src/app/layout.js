@@ -3,6 +3,8 @@ import './globals.css'
 import Nav from '@/components/Nav/Nav';
 import { Josefin_Sans } from 'next/font/google'
 
+export const dynamic = 'force-static'
+
 const josefinSans = Josefin_Sans({
   subsets: ['latin'],
   display: 'swap',
