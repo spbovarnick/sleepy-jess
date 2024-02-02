@@ -14,7 +14,7 @@ export default function ClientImg({ img, sizes, classes, noBlur }) {
   return (
     <Image
       {...imageProps}
-      alt={img.alt}
+      alt={img?.alt}
       sizes={sizes}
       quality={100}
       placeholder={ "blur"}

@@ -13,7 +13,13 @@ export default async function Home() {
         height,
         blurb,
         medium,
-        'url': image.asset -> url ,
+        image{
+        alt,
+        asset->{
+          ...,
+          metadata
+        }
+      },
         "slug": artwork_slug.current
       }
     }`
